@@ -1,1 +1,5 @@
 /bin/
+*.iml
+*.project
+/.idea/
+/out/
