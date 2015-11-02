@@ -26,8 +26,8 @@ public class Item {
     	this.name = new SimpleStringProperty(name);
     	this.location = new SimpleStringProperty(location);
     	this.owner = new SimpleStringProperty(owner);
-    	this.iID = new SimpleStringProperty(iID);
     	this.oID = new SimpleStringProperty(oID);
+    	this.iID = new SimpleStringProperty(iID);
     }
     
     public void setName(String word){

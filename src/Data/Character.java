@@ -16,10 +16,10 @@ public class Character {
     private StringProperty occupation;
     private StringProperty cID;
   
-    public Character(String name, String age, String gender, String race, String occupation, String cID){
+    public Character(String name, String gender, String age, String race, String occupation, String cID){
     	this.name = new SimpleStringProperty(name);
-    	this.age = new SimpleStringProperty(age);
     	this.gender = new SimpleStringProperty(gender);
+    	this.age = new SimpleStringProperty(age);
     	this.race = new SimpleStringProperty(race);
     	this.occupation = new SimpleStringProperty(occupation);
     	this.cID = new SimpleStringProperty(cID);

@@ -1,13 +1,17 @@
 package GUI;
 
+import java.sql.SQLException;
+
 import Data.Item;
 import Data.Character;
+import Database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
 
 public class Controller {
 	
@@ -15,6 +19,8 @@ public class Controller {
 	private ObservableList<Character> itemData = FXCollections.observableArrayList();
 	private ObservableList<Character> characterFilter = FXCollections.observableArrayList();
 	private ObservableList<Character> itemFilter = FXCollections.observableArrayList();
+	
+	private Database database = new Database();
 	
 	private Character selectedCharacter;
 	private Item selectedItem;
@@ -46,7 +52,6 @@ public class Controller {
 	
 	@FXML
 	public void initialize() {
-catalogTable.setItems(catalog.getCatalog());
 		
 		nameColumn.setCellValueFactory(
 				cellData -> cellData.getValue().getNameProperty());
@@ -55,7 +60,7 @@ catalogTable.setItems(catalog.getCatalog());
 		ageColumn.setCellValueFactory(
 				cellData -> cellData.getValue().getAgeProperty());
 		raceColumn.setCellValueFactory( 
-				cellData -> cellData.getValue().getRacePreoprty());
+				cellData -> cellData.getValue().getRaceProperty());
 		occupationColumn.setCellValueFactory(
 				cellData -> cellData.getValue().getOccupationProperty());
 
@@ -75,15 +80,30 @@ catalogTable.setItems(catalog.getCatalog());
 		itemTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> setSelectedItem(newValue));
 		
+		try {
+			database.load_db();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		characterTable.setItems(database.getCharacter_list());
+		
+		itemTable.setItems(database.getItems_list());
+		
 		
 	}
 	
 	public void setSelectedCharacter(Character character) {
-		selectedCharacter = character;
+		if (character != null) {
+			selectedCharacter = character;
+		}
 	}
 	
 	public void setSelectedItem(Item item) {
-		selectedItem = item;
+		if (item != null) {
+			selectedItem = item;
+		}
 	}
 	
 	public void handlePress (KeyCode code) {
