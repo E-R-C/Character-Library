@@ -67,9 +67,22 @@ public class Controller {
 	@FXML
 	private TextField locationBox;
 	
+	@FXML
+	private TextField characterFilter;
+	
+	@FXML 
+	private TextField characterLabel;
+	
+	@FXML
+	private TextField itemFilter;
+	
+	@FXML
+	private TextField itemLabel;
+	
 	private String CharacterID;
 	
 	private String ItemID;
+	
 	
 	@FXML
 	public void initialize() {
@@ -243,6 +256,60 @@ public class Controller {
 				&& database.getItems_list().contains(selectedItem)) {
 			selectedItem.setOwner(selectedCharacter.getName());
 			selectedItem.setoID(selectedCharacter.getcID());
+		}
+	}
+	
+	public void removeOwner() {
+		if (database.getItems_list().contains(selectedItem)) {
+			selectedItem.setOwner("None");
+			selectedItem.setoID("0");
+		}
+	}
+	
+	public void filterCharacters() {
+		if (!characterLabel.getText().isEmpty()
+				&& !characterFilter.getText().isEmpty()) {
+			try {
+				database.queryChar(characterLabel.getText(), 
+						characterFilter.getText());
+				characterTable.setItems(database.getFilter_Character());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+		
+		else {
+			characterTable.setItems(database.getCharacter_list());
+		}
+	}
+	
+	public void filterItems() {
+		if (!itemLabel.getText().isEmpty()
+				&& !itemFilter.getText().isEmpty()) {
+			try {
+				database.queryitem(itemLabel.getText(), 
+						itemFilter.getText());
+				itemTable.setItems(database.getFilter_Items());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+		
+		else {
+			itemTable.setItems(database.getItems_list());
+		}		
+	}
+	
+	public void displayInventory() {
+		if (database.getCharacter_list().contains(selectedCharacter)) {
+			try {
+				database.queryitem("CharacterID", selectedCharacter.getcID());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
