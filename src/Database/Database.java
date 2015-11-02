@@ -121,12 +121,18 @@ public class Database {
         }
     }
     public String getMaxcID() throws SQLException {
-        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS ORDER BY CharacterID DESC LIMIT 1;" );
-        return rs.getString("CharacterID");
+        if (items_list.size() > 0){
+            ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS ORDER BY CharacterID DESC LIMIT 1;" );
+            return rs.getString("CharacterID");
+        }
+        return "0";
     }
     public String getMaxiID() throws SQLException {
-        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS ORDER BY itemID DESC LIMIT 1;" );
-        return rs.getString("ItemID");
+        if (character_list.size() > 0){
+            ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS ORDER BY itemID DESC LIMIT 1;" );
+            return rs.getString("ItemID");
+        }
+        return "0";
     }
     public void queryitem(String Column, String input) throws SQLException{
         ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS");
