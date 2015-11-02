@@ -1,7 +1,6 @@
 package Database;
 import Data.Character;
 import Data.Item;
-import com.sun.javafx.binding.SelectBinding;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
@@ -14,7 +13,6 @@ public class Database {
     private ObservableList<Character> character_list;
     private ObservableList<Item> filter_items;
     private ObservableList<Character> filter_character;
-
     private Connection con;
     private Statement stat;
     public void load_db() throws SQLException {
@@ -80,7 +78,21 @@ public class Database {
         execute(cmd);
 
     }
-
+    private Item findItem(String ID){
+        Item item = null;
+        for (int i = 0; i < items_list.size(); i++) {
+            if (ID == items_list.get(i).getoID()) {
+                if (ID == items_list.get(i).getoID()) {
+                    item = items_list.get(i);
+                    break;
+                }
+            }
+        }
+        if (item == null){
+            throw new NullPointerException();
+        }
+        return item;
+    }
     private Character findChar(String ID){
         Character charchanging =  null; // NO OTHER OPTION
         for (int i = 0; i < character_list.size(); i++) {
@@ -90,6 +102,9 @@ public class Database {
                     break;
                 }
             }
+        }
+        if (charchanging == null){
+            throw new NullPointerException();
         }
         return charchanging;
     }
@@ -114,8 +129,15 @@ public class Database {
         return rs.getString("ItemID");
     }
     public void queryitem(String Column, String input) throws SQLException{
-        ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS ORDER BY ");
-
+        ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS");
+        int in_len = input.length();
+        while (rs.next()){
+            if (input.length() <= rs.getString(Column).length()){
+                if (rs.getString(Column).toLowerCase().substring(0, in_len - 1).equals(input.toLowerCase().substring(0,in_len-1))){
+                    filter_items.add(findItem(rs.getString("ItemID")));
+                }
+            }
+        }
     }
     private void execute(String cmd) throws SQLException {
         stat.execute(cmd);
