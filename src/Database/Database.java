@@ -125,6 +125,7 @@ public class Database {
         return charchanging;
     }
     public void queryChar(String Column, String input) throws SQLException {
+        filter_character.clear();
         ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
         int in_len = input.length();
         while (rs.next()){
@@ -151,6 +152,7 @@ public class Database {
         return "0";
     }
     public void queryitem(String Column, String input) throws SQLException{
+        filter_items.clear();
         ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS");
         int in_len = input.length();
         while (rs.next()){
