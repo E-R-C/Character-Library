@@ -6,17 +6,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.6328320802005013" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane fx:id="canvas" dividerPositions="0.6328320802005013" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0">
          <children>
-            <TableView layoutY="35.0" prefHeight="200.0" prefWidth="500.0">
+            <TableView fx:id="characterTable" layoutY="35.0" prefHeight="200.0" prefWidth="500.0">
               <columns>
-                <TableColumn prefWidth="100.0" text="Name" />
-                <TableColumn prefWidth="100.0" text="Gender" />
-                  <TableColumn prefWidth="100.0" text="Age" />
-                  <TableColumn prefWidth="100.0" text="Race" />
-                  <TableColumn prefWidth="100.0" text="Occupation" />
+                <TableColumn fx:id="nameColumn" prefWidth="100.0" text="Name" />
+                <TableColumn fx:id="genderColumn" prefWidth="100.0" text="Gender" />
+                  <TableColumn fx:id="ageColumn" prefWidth="100.0" text="Age" />
+                  <TableColumn fx:id="raceColumn" prefWidth="100.0" text="Race" />
+                  <TableColumn fx:id="occupationColumn" prefWidth="100.0" text="Occupation" />
               </columns>
             </TableView>
             <Text layoutX="168.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Character Table">
@@ -24,14 +24,14 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button layoutY="338.0" mnemonicParsing="false" prefWidth="150.0" text="New Character" />
-            <Button layoutX="151.0" layoutY="338.0" mnemonicParsing="false" prefWidth="150.0" text="Edit Character" />
-            <Button layoutX="301.0" layoutY="338.0" mnemonicParsing="false" prefWidth="200.0" text="Delete Character" />
-            <TextField layoutX="1.0" layoutY="369.0" prefWidth="100.0" promptText="Name" />
-            <TextField layoutX="101.0" layoutY="369.0" prefWidth="100.0" promptText="Gender" />
-            <TextField layoutX="201.0" layoutY="369.0" prefWidth="100.0" promptText="Age" />
-            <TextField layoutX="301.0" layoutY="369.0" prefWidth="100.0" promptText="Race" />
-            <TextField layoutX="401.0" layoutY="369.0" prefWidth="100.0" promptText="Occupation" />
+            <Button layoutY="338.0" mnemonicParsing="false" onAction="#addCharacter" prefWidth="150.0" text="New Character" />
+            <Button layoutX="151.0" layoutY="338.0" mnemonicParsing="false" onAction="#editCharacter" prefWidth="150.0" text="Edit Character" />
+            <Button layoutX="301.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteCharacter" prefWidth="200.0" text="Delete Character" />
+            <TextField fx:id="nameBox" layoutX="1.0" layoutY="369.0" prefWidth="100.0" promptText="Name" />
+            <TextField fx:id="genderBox" layoutX="101.0" layoutY="369.0" prefWidth="100.0" promptText="Gender" />
+            <TextField fx:id="ageBox" layoutX="201.0" layoutY="369.0" prefWidth="100.0" promptText="Age" />
+            <TextField fx:id="raceBox" layoutX="301.0" layoutY="369.0" prefWidth="100.0" promptText="Race" />
+            <TextField fx:id="occupationBox" layoutX="401.0" layoutY="369.0" prefWidth="100.0" promptText="Occupation" />
             <Button layoutX="251.0" layoutY="235.0" mnemonicParsing="false" prefWidth="250.0" text="Display Character  Inventory" />
             <Button layoutY="235.0" mnemonicParsing="false" prefWidth="150.0" text="Filter Characters" />
             <TextField layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
@@ -40,11 +40,11 @@
     <AnchorPane minHeight="0.0" minWidth="0.0">
          <children>
             <Button layoutX="145.0" layoutY="266.0" mnemonicParsing="false" prefWidth="150.0" text="Remove Owner" />
-            <TableView layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
+            <TableView fx:id="itemTable" layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
               <columns>
-                <TableColumn prefWidth="100.0" text="Item" />
-                <TableColumn prefWidth="100.0" text="Location" />
-                  <TableColumn prefWidth="100.0" text="Owner" />
+                <TableColumn fx:id="itemColumn" prefWidth="100.0" text="Item" />
+                <TableColumn fx:id="locationColumn" prefWidth="100.0" text="Location" />
+                  <TableColumn fx:id="ownerColumn" prefWidth="100.0" text="Owner" />
               </columns>
             </TableView>
             <Text layoutX="89.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Table">
@@ -52,12 +52,12 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button layoutX="-5.0" layoutY="338.0" mnemonicParsing="false" prefWidth="100.0" text="New Item" />
-            <Button layoutX="95.0" layoutY="338.0" mnemonicParsing="false" prefWidth="100.0" text="Edit Item" />
-            <Button layoutX="195.0" layoutY="338.0" mnemonicParsing="false" prefWidth="100.0" text="Delete Item" />
+            <Button layoutX="-5.0" layoutY="338.0" mnemonicParsing="false" onAction="#addItem" prefWidth="100.0" text="New Item" />
+            <Button layoutX="95.0" layoutY="338.0" mnemonicParsing="false" onAction="#editItem" prefWidth="100.0" text="Edit Item" />
+            <Button layoutX="195.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteItem" prefWidth="100.0" text="Delete Item" />
             <Button layoutX="145.0" layoutY="235.0" mnemonicParsing="false" prefWidth="150.0" text="Assign Owner" />
-            <TextField layoutX="-5.0" layoutY="369.0" prefWidth="100.0" promptText="Item" />
-            <TextField layoutX="95.0" layoutY="369.0" prefWidth="100.0" promptText="Location" />
+            <TextField fx:id="itemBox" layoutX="-5.0" layoutY="369.0" prefWidth="100.0" promptText="Item" />
+            <TextField fx:id="locationBox" layoutX="95.0" layoutY="369.0" prefWidth="100.0" promptText="Location" />
             <TextField layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
             <TextField layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
             <Button layoutY="235.0" mnemonicParsing="false" prefWidth="150.0" text="Filter Items" />

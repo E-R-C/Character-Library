@@ -2,8 +2,6 @@ package GUI;
 
 import java.sql.SQLException;
 
-import application.Catalog;
-import application.Song;
 import Data.Item;
 import Data.Character;
 import Database.Database;
@@ -17,11 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
 public class Controller {
-	
-	private ObservableList<Character> characterData = FXCollections.observableArrayList();
-	private ObservableList<Character> itemData = FXCollections.observableArrayList();
-	private ObservableList<Character> characterFilter = FXCollections.observableArrayList();
-	private ObservableList<Character> itemFilter = FXCollections.observableArrayList();
 	
 	private Database database = new Database();
 	
@@ -74,9 +67,9 @@ public class Controller {
 	@FXML
 	private TextField locationBox;
 	
-	private String CharacterID = "1";
+	private String CharacterID;
 	
-	private String ItemID = "1";
+	private String ItemID;
 	
 	@FXML
 	public void initialize() {
@@ -119,7 +112,22 @@ public class Controller {
 		
 		itemTable.setItems(database.getItems_list());
 		
+		try {
+			CharacterID = database.getMaxcID();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		try {
+			ItemID = database.getMaxiID();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		incCharacterID();
+		incItemID();
 	}
 	
 	public void incCharacterID() {
@@ -155,7 +163,12 @@ public class Controller {
 			Character character = new Character(nameBox.getText(), 
 					genderBox.getText(), ageBox.getText(), 
 					raceBox.getText(), occupationBox.getText(), CharacterID);
-			database.addChar(character);
+			try {
+				database.addChar(character);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			incCharacterID();
 			nameBox.clear();
 			genderBox.clear();
@@ -164,4 +177,70 @@ public class Controller {
 			occupationBox.clear();
 		}
 	}
+	
+	public void addItem() {
+		if (!itemBox.getText().isEmpty()) {
+			Item item = new Item(itemBox.getText(), locationBox.getText(), "None", 
+					"0", ItemID);
+			try {
+				database.addItem(item);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			incItemID();
+			itemBox.clear();
+			locationBox.clear();
+		}
+	}
+	
+	public void editCharacter() {
+		if (!nameBox.getText().isEmpty() 
+				&& database.getCharacter_list().contains(selectedCharacter)) {
+			selectedCharacter.setName(nameBox.getText());
+			selectedCharacter.setGender(genderBox.getText());
+			selectedCharacter.setAge(ageBox.getText());
+			selectedCharacter.setRace(raceBox.getText());
+			selectedCharacter.setOccupation(occupationBox.getText());
+		}
+	}
+	
+	public void editItem() {
+		if (!itemBox.getText().isEmpty() 
+				&& database.getItems_list().contains(selectedItem)) {
+			selectedItem.setName(itemBox.getText());
+			selectedItem.setLocation(locationBox.getText());
+		}
+	}
+	
+	public void deleteCharacter() {
+		if (database.getCharacter_list().contains(selectedCharacter)) {
+			try {
+				database.deleteChar(selectedCharacter);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteItem() {
+		if (database.getItems_list().contains(selectedItem)) {
+			try {
+				database.deleteItem(selectedItem);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void assignOwner() {
+		if (database.getCharacter_list().contains(selectedCharacter)
+				&& database.getItems_list().contains(selectedItem)) {
+			selectedItem.setOwner(selectedCharacter.getName());
+			selectedItem.setoID(selectedCharacter.getcID());
+		}
+	}
+	
 }
