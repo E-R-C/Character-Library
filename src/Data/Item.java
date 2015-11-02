@@ -15,20 +15,19 @@ public class Item {
     private StringProperty iID;
     private StringProperty oID;
     
-
-    public void update(String variabletochange, String new_val){
-
-    }
-    public void changeOwner(){
-
+    public void deleteOwner(String id){
+    	if (id.equals(oID.get())) {
+    		owner.set("None");
+    		oID.set("0");
+    	}
     }    
     
-    public Item(String name){
+    public Item(String name, String location, String owner, String oID, String iID){
     	this.name = new SimpleStringProperty(name);
-    	location = new SimpleStringProperty("N/A");
-    	owner = new SimpleStringProperty("None");
-    	iID = new SimpleStringProperty();
-    	oID = new SimpleStringProperty();
+    	this.location = new SimpleStringProperty(location);
+    	this.owner = new SimpleStringProperty(owner);
+    	this.iID = new SimpleStringProperty(iID);
+    	this.oID = new SimpleStringProperty(oID);
     }
     
     public void setName(String word){

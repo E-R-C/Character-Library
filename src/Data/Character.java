@@ -15,18 +15,14 @@ public class Character {
     private StringProperty race;
     private StringProperty occupation;
     private StringProperty cID;
-    
-    public void update(String variabletochange, String new_value){
-
-    }
-    
-    public Character(String name){
+  
+    public Character(String name, String age, String gender, String race, String occupation, String cID){
     	this.name = new SimpleStringProperty(name);
-    	age = new SimpleStringProperty("N/A");
-    	gender = new SimpleStringProperty("N/A");
-    	race = new SimpleStringProperty("N/A");
-    	occupation = new SimpleStringProperty("N/A");
-    	cID = new SimpleStringProperty();
+    	this.age = new SimpleStringProperty(age);
+    	this.gender = new SimpleStringProperty(gender);
+    	this.race = new SimpleStringProperty(race);
+    	this.occupation = new SimpleStringProperty(occupation);
+    	this.cID = new SimpleStringProperty(cID);
     }
     
     public void setName(String word){
