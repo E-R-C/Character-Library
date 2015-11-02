@@ -30,7 +30,7 @@ public class Database {
     public void populate_lists() throws SQLException {
         ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
         while(rs.next()){
-            character_list.add(new Character(rs.getString("Name"), rs.getString("Gender"), rs.getString("Age"), rs.getString("Race"), rs.getString("Occupation"), rs.getString("CharcterID")));
+            character_list.add(new Character(rs.getString("Name"), rs.getString("Gender"), rs.getString("Age"), rs.getString("Race"), rs.getString("Occupation"), rs.getString("CharacterID")));
             // rs.getString("Name"), rs.getString("Age"), rs.getString("Gender"), rs.getString("Race"), rs.getString("Occupation"), rs.getString("CharcterID")
             }
         rs = stat.executeQuery("SELECT * FROM ITEMS;");
@@ -80,9 +80,37 @@ public class Database {
 
     }
 
+    private Character findChar(String ID){
+        Character charchanging =  null; // NO OTHER OPTION
+        for (int i = 0; i < character_list.size(); i++) {
+            if (ID == character_list.get(i).getcID()) {
+                if (ID == character_list.get(i).getcID()) {
+                    charchanging = character_list.get(i);
+                    break;
+                }
+            }
+        }
+        return charchanging;
+    }
     public void queryChar(String Column, String input) throws SQLException {
-        String cmd = "SELECT * FROM CHARACTERS;";
-        execute(cmd);
+        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
+        int in_len = input.length();
+        while (rs.next()){
+            if (input.length() <= rs.getString(Column).length()){
+                if (rs.getString(Column).toLowerCase().substring(0,in_len-1).equals(input.toLowerCase().substring(0,in_len-1))){
+                    filter_character.add(findChar(rs.getString("CharacterID")));
+                }
+            }
+
+        }
+    }
+    public int getMaxcID() throws SQLException {
+        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
+        return rs.getFetchSize();
+    }
+    public int getMaxiID() throws SQLException {
+        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
+        return rs.getFetchSize();
     }
     public void queryitem(String Column, String input) throws SQLException{
 
