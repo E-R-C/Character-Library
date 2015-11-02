@@ -2,6 +2,8 @@ package GUI;
 
 import java.sql.SQLException;
 
+import application.Catalog;
+import application.Song;
 import Data.Item;
 import Data.Character;
 import Database.Database;
@@ -11,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
 public class Controller {
@@ -49,6 +52,31 @@ public class Controller {
 	private TableColumn<Item, String> locationColumn;
 	@FXML
 	private TableColumn<Item, String> ownerColumn;
+	
+	@FXML
+	private TextField nameBox;
+	
+	@FXML
+	private TextField genderBox;
+	
+	@FXML
+	private TextField ageBox;
+	
+	@FXML
+	private TextField raceBox;
+	
+	@FXML 
+	private TextField occupationBox;
+	
+	@FXML
+	private TextField itemBox;
+	
+	@FXML
+	private TextField locationBox;
+	
+	private String CharacterID = "1";
+	
+	private String ItemID = "1";
 	
 	@FXML
 	public void initialize() {
@@ -94,6 +122,18 @@ public class Controller {
 		
 	}
 	
+	public void incCharacterID() {
+		int charID = Integer.parseInt(CharacterID);
+		charID++;
+		CharacterID = Integer.toString(charID);
+	}
+	
+	public void incItemID() {
+		int itID = Integer.parseInt(ItemID);
+		itID++;
+		ItemID = Integer.toString(itID);
+	}
+	
 	public void setSelectedCharacter(Character character) {
 		if (character != null) {
 			selectedCharacter = character;
@@ -108,5 +148,20 @@ public class Controller {
 	
 	public void handlePress (KeyCode code) {
 		
+	}
+	
+	public void addCharacter() {
+		if (!nameBox.getText().isEmpty()) {
+			Character character = new Character(nameBox.getText(), 
+					genderBox.getText(), ageBox.getText(), 
+					raceBox.getText(), occupationBox.getText(), CharacterID);
+			database.addChar(character);
+			incCharacterID();
+			nameBox.clear();
+			genderBox.clear();
+			ageBox.clear();
+			raceBox.clear();
+			occupationBox.clear();
+		}
 	}
 }
