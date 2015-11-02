@@ -2,10 +2,8 @@ package Database;
 import Data.Character;
 import Data.Item;
 import javafx.collections.ObservableList;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 
 /**
  * Created by Eric on 10/27/2015.
@@ -13,6 +11,9 @@ import java.sql.Statement;
 public class Database {
     private ObservableList<Item> items_list;
     private ObservableList<Character> character_list;
+    private ObservableList<Item> filter_items;
+    private ObservableList<Character> filter_character;
+
     private Connection con;
     private Statement stat;
     public void load_db() throws SQLException {
@@ -26,85 +27,71 @@ public class Database {
         execute(cmd);
         populate_lists();
     }
-    public void populate_lists(){
-        // TODO
-
-    }
-
-    public Character findChar(int ID){
-        Character charchanging = new Character();
-        for (int i = 0; i < character_list.size(); i++) {
-            if (ID == character_list.get(i).getID()) {
-                charchanging = character_list.get(i);
-                break;
+    public void populate_lists() throws SQLException {
+        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
+        while(rs.next()){
+            character_list.add(new Character(rs.getString("Name"), rs.getString("Gender"), rs.getString("Age"), rs.getString("Race"), rs.getString("Occupation"), rs.getString("CharcterID")));
+            // rs.getString("Name"), rs.getString("Age"), rs.getString("Gender"), rs.getString("Race"), rs.getString("Occupation"), rs.getString("CharcterID")
+            }
+        rs = stat.executeQuery("SELECT * FROM ITEMS;");
+        while(rs.next()){
+            items_list.add(new Item(rs.getString("Name"),rs.getString("Location"),rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")));
+            // rs.getString("Name"),rs.getString("Location"),rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")
             }
         }
-        return charchanging;
-    }
-    public Item findItem(int ID){
-        // Should this throw something if it can't find it? -E.H.
-        Item item = new Item();
-        for (int i = 0; i < items_list.size(); i++) {
-            if (ID == items_list.get(i).getID()) {
-                item = items_list.get(i);
-                break;
-            }
-        }
-        return item;
-    }
 
-    public void writeCharCell(int ID, String column, String new_val) throws SQLException {
-        String cmd = "UPDATE CHARACTERS SET column='" + new_val + "' WHERE CharacterID = " + ID + ";"; // Insert Code Here
-        Character charchanging = findChar(ID);
-        charchanging.update(column, new_val);
+
+    public void updateChar(Character c) throws SQLException {
+        // Name VARCHAR, Age VARCHAR, Gender VARCHAR, Race VARCHAR, Occupation VARCHAR, CharacterID VARCHAR
+        String cmd = "UPDATE CHARACTERS SET Name =" + c.getName() + ", Age = " + c.getAge() + ", Gender = " +
+                c.getGender() + ", Race = " + c.getRace() + ", Occupation = " + c.getOccupation() +
+                ", CharacterID = " + c.getcID() + ", WHERE ItemID = " + c.getcID() + ";";
         execute(cmd);
     }
-    public void writeItemCell(int ID, String column, String new_val) throws SQLException {
-        String cmd = "UPDATE ITEMS SET column='" + new_val + "' WHERE ItemID = " + ID + ";";
-        Item item = findItem(ID);
-        item.update(column, new_val);
+    public void updateItem(Item i) throws SQLException {
+        String cmd = "UPDATE ITEMS SET Name =" + i.getName() + ", Location = " + i.getLocation() + ", Owner = " + i.getOwner() + ", CharacterID = " + i.getoID() + ", WHERE ItemID = " + i.getiID() + ";";
         execute(cmd);
     }
-    public void addChar(String Name, String Age, String Gender,String Race, String Occupation, String Character_ID ) throws SQLException {
+    public void addChar(Character c) throws SQLException {
         // instead of item. we could add each of the column inputs. it may be better that way.
-        Character nChar = new Character(); // pass in the new arguments
-        character_list.add(nChar);
-        String cmd = "INSERT INTO CHARACTERS (Name, Age, Gender, Race, Occupation, CharacterID) VALUES (" + Name + ","
-                + Age + "," + Gender + "," + Race + "," + Occupation + "," + Character_ID + " );";
+        character_list.add(c);
+        String cmd = "INSERT INTO CHARACTERS (Name, Gender, Age, Race, Occupation, CharacterID) VALUES (" + c.getName() + ","
+                + c.getGender() + "," + c.getAge() + "," + c.getRace() + "," + c.getOccupation() + "," + c.getcID() + " );";
         execute(cmd);
     }
-    public void addItem(String Name, String Location, String Owner, String CharacterID, String ItemID) throws SQLException {
+    public void addItem(Item item) throws SQLException {
         // instead of char. we could add each of the column inputs. it may be better that way.
-        Item nItem = new Item();
-        items_list.add(nItem);
+        items_list.add(item);
         String cmd = "INSERT INTO ITEMS (Name, Location, Owner, CharacterID, ItemID) VALUES (" +
-                Name + "," + Location + "," + Owner + "," + CharacterID + "," + ItemID + ");";
+                item.getName() + "," + item.getLocation() + "," + item.getOwner() + "," + item.getoID() + "," + item.getiID() + ");";
         execute(cmd);
 
     }
-    public void deleteItem(int ID) throws SQLException {
-        String cmd = "DELETE from CHARACTERS where ID=" + ID + ";";
-        Item item = findItem(ID);
+    public void deleteItem(Item item) throws SQLException {
+        String cmd = "DELETE from CHARACTERS where ItemID=" + item.getiID() + ";";
         items_list.remove(item);
         execute(cmd);
     }
-    public void deleteChar(int ID) throws SQLException {
-        String cmd = "DELETE from ITEMS where ID=" + ID + ";";
+    public void deleteChar(Character chr) throws SQLException {
+        String cmd = "DELETE from ITEMS where ID=" + chr.getcID() + ";";
         // Update the items that belong to this character
-        Character chr = findChar(ID);
         character_list.remove(chr);
         execute(cmd);
 
     }
 
-    public void filterItem() throws SQLException {
-        String cmd = "";
+    public void queryChar(String Column, String input) throws SQLException {
+        String cmd = "SELECT * FROM CHARACTERS;";
         execute(cmd);
+    }
+    public void queryitem(String Column, String input) throws SQLException{
+
     }
     private void execute(String cmd) throws SQLException {
         stat.execute(cmd);
     }
-
+    public ObservableList<Item> getFilter_Items(){return filter_items;}
+    public ObservableList<Character> getFilter_Character(){return filter_character;}
     public ObservableList<Item> getItems_list(){return items_list;}
     public ObservableList<Character> getCharacter_list(){return character_list;}
 
