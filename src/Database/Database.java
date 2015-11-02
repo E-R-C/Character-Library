@@ -1,6 +1,7 @@
 package Database;
 import Data.Character;
 import Data.Item;
+import com.sun.javafx.binding.SelectBinding;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
@@ -104,15 +105,16 @@ public class Database {
 
         }
     }
-    public int getMaxcID() throws SQLException {
-        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
-        return rs.getFetchSize();
+    public String getMaxcID() throws SQLException {
+        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS ORDER BY CharacterID DESC LIMIT 1;" );
+        return rs.getString("CharacterID");
     }
-    public int getMaxiID() throws SQLException {
-        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
-        return rs.getFetchSize();
+    public String getMaxiID() throws SQLException {
+        ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS ORDER BY itemID DESC LIMIT 1;" );
+        return rs.getString("ItemID");
     }
     public void queryitem(String Column, String input) throws SQLException{
+        ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS ORDER BY ");
 
     }
     private void execute(String cmd) throws SQLException {
