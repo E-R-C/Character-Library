@@ -15,8 +15,9 @@ public class Database {
     private ObservableList<Character> filter_character;
     private Connection con;
     private Statement stat;
-    public void load_db() throws SQLException {
-        con = DriverManager.getConnection("jdbc:sqlite:story");
+    public void load_db() throws SQLException, ClassNotFoundException {
+        Class.forName("org.sqlite.JBDC");
+        con = DriverManager.getConnection("jdbc:sqlite:story.db");
         stat = con.createStatement();
         String cmd = "create table if not exists CHARACTERS (Name VARCHAR, Age VARCHAR, Gender VARCHAR, Race VARCHAR, Occupation VARCHAR, CharacterID VARCHAR);";
         execute(cmd);
