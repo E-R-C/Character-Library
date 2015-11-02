@@ -265,7 +265,7 @@ public class Controller {
 			selectedItem.setoID("0");
 		}
 	}
-	
+	@FXML
 	public void filterCharacters() {
 		if (!characterLabel.getText().isEmpty()
 				&& !characterFilter.getText().isEmpty()) {
@@ -283,7 +283,7 @@ public class Controller {
 			characterTable.setItems(database.getCharacter_list());
 		}
 	}
-	
+	@FXML
 	public void filterItems() {
 		if (!itemLabel.getText().isEmpty()
 				&& !itemFilter.getText().isEmpty()) {

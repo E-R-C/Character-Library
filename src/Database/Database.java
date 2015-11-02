@@ -97,11 +97,9 @@ public class Database {
     private Item findItem(String ID){
         Item item = null;
         for (int i = 0; i < items_list.size(); i++) {
-            if (ID == items_list.get(i).getoID()) {
-                if (ID == items_list.get(i).getoID()) {
-                    item = items_list.get(i);
-                    break;
-                }
+            if (ID.equals(items_list.get(i).getiID())) {
+                item = items_list.get(i);
+                break;
             }
         }
         if (item == null){
@@ -112,11 +110,9 @@ public class Database {
     private Character findChar(String ID){
         Character charchanging =  null; // NO OTHER OPTION
         for (int i = 0; i < character_list.size(); i++) {
-            if (ID == character_list.get(i).getcID()) {
-                if (ID == character_list.get(i).getcID()) {
-                    charchanging = character_list.get(i);
-                    break;
-                }
+            if (ID.equals(character_list.get(i).getcID())) {
+                charchanging = character_list.get(i);
+                break;
             }
         }
         if (charchanging == null){
@@ -128,9 +124,13 @@ public class Database {
         filter_character.clear();
         ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
         int in_len = input.length();
+
         while (rs.next()){
+            System.out.println("Column = " + rs.getString(Column).substring(0,in_len-1));
+            System.out.println("input = " + input);
             if (input.length() <= rs.getString(Column).length()){
-                if (rs.getString(Column).toLowerCase().substring(0,in_len-1).equals(input.toLowerCase().substring(0,in_len-1))){
+                if (rs.getString(Column).toLowerCase().substring(0,in_len).equals(input.toLowerCase())){
+                    System.out.println(rs.getString("CharacterID"));
                     filter_character.add(findChar(rs.getString("CharacterID")));
                 }
             }
@@ -157,8 +157,12 @@ public class Database {
         int in_len = input.length();
         while (rs.next()){
             if (input.length() <= rs.getString(Column).length()){
-                if (rs.getString(Column).toLowerCase().substring(0, in_len - 1).equals(input.toLowerCase().substring(0,in_len-1))){
+                System.out.println("Column = " + rs.getString(Column).substring(0,in_len-1));
+                System.out.println("input = " + input);
+                if (rs.getString(Column).toLowerCase().substring(0, in_len).equals(input.toLowerCase())){
+                    System.out.println(rs.getString("ItemID"));
                     filter_items.add(findItem(rs.getString("ItemID")));
+
                 }
             }
         }
@@ -168,7 +172,7 @@ public class Database {
         stat.execute(cmd);
     }
     public ObservableList<Item> getFilter_Items(){return filter_items;}
-    public ObservableList<Character> getFilter_Character(){return filter_character;}
+    public ObservableList<Character> getFilter_Character(){System.out.println(filter_character.toString()); return filter_character;}
     public ObservableList<Item> getItems_list(){return items_list;}
     public ObservableList<Character> getCharacter_list(){return character_list;}
 

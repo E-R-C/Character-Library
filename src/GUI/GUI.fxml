@@ -33,9 +33,9 @@
             <TextField fx:id="raceBox" layoutX="301.0" layoutY="369.0" prefWidth="100.0" promptText="Race" />
             <TextField fx:id="occupationBox" layoutX="401.0" layoutY="369.0" prefWidth="100.0" promptText="Occupation" />
             <Button layoutX="251.0" layoutY="235.0" mnemonicParsing="false" prefWidth="250.0" text="Display Character  Inventory" />
-            <Button layoutY="235.0" mnemonicParsing="false" prefWidth="150.0" text="Filter Characters" />
-            <TextField layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
-            <TextField layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
+            <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterCharacters" prefWidth="150.0" text="Filter Characters" />
+            <TextField fx:id="characterLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
+            <TextField fx:id="characterFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0">
          <children>
@@ -58,9 +58,9 @@
             <Button layoutX="145.0" layoutY="235.0" mnemonicParsing="false" prefWidth="150.0" text="Assign Owner" />
             <TextField fx:id="itemBox" layoutX="-5.0" layoutY="369.0" prefWidth="100.0" promptText="Item" />
             <TextField fx:id="locationBox" layoutX="95.0" layoutY="369.0" prefWidth="100.0" promptText="Location" />
-            <TextField layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
-            <TextField layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
-            <Button layoutY="235.0" mnemonicParsing="false" prefWidth="150.0" text="Filter Items" />
+            <TextField fx:id="itemFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
+            <TextField fx:id="itemLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
+            <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterItems" prefWidth="150.0" text="Filter Items" />
          </children></AnchorPane>
   </items>
 </SplitPane>
