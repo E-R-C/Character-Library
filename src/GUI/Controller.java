@@ -106,8 +106,11 @@ public class Controller {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-		
+
+
 		characterTable.setItems(database.getCharacter_list());
 		
 		itemTable.setItems(database.getItems_list());

@@ -1,6 +1,7 @@
 package Database;
 import Data.Character;
 import Data.Item;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
@@ -16,16 +17,29 @@ public class Database {
     private Connection con;
     private Statement stat;
     public void load_db() throws SQLException, ClassNotFoundException {
+        items_list = FXCollections.observableArrayList();
+        character_list = FXCollections.observableArrayList();
+        filter_items = FXCollections.observableArrayList();
+        filter_character = FXCollections.observableArrayList();
         Class.forName("org.sqlite.JBDC");
+        why();
         con = DriverManager.getConnection("jdbc:sqlite:story.db");
         stat = con.createStatement();
-        String cmd = "create table if not exists CHARACTERS (Name VARCHAR, Age VARCHAR, Gender VARCHAR, Race VARCHAR, Occupation VARCHAR, CharacterID VARCHAR);";
+        String cmd = "CREATE TABLE IF NOT EXISTS CHARACTERS (Name VARCHAR, Age VARCHAR, Gender VARCHAR, Race VARCHAR, Occupation VARCHAR, CharacterID VARCHAR);";
         execute(cmd);
         cmd = "create table if not exists ITEMS (Name VARCHAR, Location VARCHAR, Owner VARCHAR, CharacterID VARCHAR, ItemID VARCHAR);";
         execute(cmd);
         cmd = "create table if not exists EVENTS (Name VARCHAR, Action VARCHAR, Item VARCHAR);";
         execute(cmd);
         populate_lists();
+        because();
+    }
+    private void why() throws SQLException {
+        con = DriverManager.getConnection("jdbc:sqlite:story.db");
+        stat = con.createStatement();
+    }
+    private void because() throws SQLException {
+        con.close();
     }
     public void populate_lists() throws SQLException {
         ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
@@ -53,11 +67,13 @@ public class Database {
         execute(cmd);
     }
     public void addChar(Character c) throws SQLException {
+        why();
         // instead of item. we could add each of the column inputs. it may be better that way.
         character_list.add(c);
         String cmd = "INSERT INTO CHARACTERS (Name, Gender, Age, Race, Occupation, CharacterID) VALUES (" + c.getName() + ","
                 + c.getGender() + "," + c.getAge() + "," + c.getRace() + "," + c.getOccupation() + "," + c.getcID() + " );";
         execute(cmd);
+        because();
     }
     public void addItem(Item item) throws SQLException {
         // instead of char. we could add each of the column inputs. it may be better that way.
@@ -147,7 +163,10 @@ public class Database {
         }
     }
     private void execute(String cmd) throws SQLException {
+        why();
+        System.out.println(cmd);
         stat.execute(cmd);
+        because();
     }
     public ObservableList<Item> getFilter_Items(){return filter_items;}
     public ObservableList<Character> getFilter_Character(){return filter_character;}
