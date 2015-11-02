@@ -32,14 +32,14 @@
             <TextField fx:id="ageBox" layoutX="201.0" layoutY="369.0" prefWidth="100.0" promptText="Age" />
             <TextField fx:id="raceBox" layoutX="301.0" layoutY="369.0" prefWidth="100.0" promptText="Race" />
             <TextField fx:id="occupationBox" layoutX="401.0" layoutY="369.0" prefWidth="100.0" promptText="Occupation" />
-            <Button layoutX="251.0" layoutY="235.0" mnemonicParsing="false" prefWidth="250.0" text="Display Character  Inventory" />
+            <Button layoutX="251.0" layoutY="235.0" mnemonicParsing="false" onAction="#displayInventory" prefWidth="250.0" text="Display Character  Inventory" />
             <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterCharacters" prefWidth="150.0" text="Filter Characters" />
             <TextField fx:id="characterLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
             <TextField fx:id="characterFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0">
          <children>
-            <Button layoutX="145.0" layoutY="266.0" mnemonicParsing="false" prefWidth="150.0" text="Remove Owner" />
+            <Button layoutX="145.0" layoutY="266.0" mnemonicParsing="false" onAction="#removeOwner" prefWidth="150.0" text="Remove Owner" />
             <TableView fx:id="itemTable" layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
               <columns>
                 <TableColumn fx:id="itemColumn" prefWidth="100.0" text="Item" />
