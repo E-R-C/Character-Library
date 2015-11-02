@@ -9,7 +9,7 @@ public class Character {
     public int getID(){
         return ID;
     }
-    public void update(String column, String new_value){
+    public void update(String variabletochange, String new_value){
 
     }
 }

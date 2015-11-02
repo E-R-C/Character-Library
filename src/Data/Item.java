@@ -10,7 +10,10 @@ public class Item {
         return ID;
     }
 
-    public void update(String column, String new_val){
+    public void update(String variabletochange, String new_val){
+
+    }
+    public void changeOwner(){
 
     }
 }
