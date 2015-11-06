@@ -34,11 +34,22 @@ public class Database {
         populate_lists();
     }
     private void why() throws SQLException {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         con = DriverManager.getConnection("jdbc:sqlite:story.db");
         stat = con.createStatement();
     }
+    private void because() throws SQLException{
+        stat.close();
+        con.close();
+    }
 
     public void populate_lists() throws SQLException {
+        why();
         ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
         while(rs.next()){
             character_list.add(new Character(rs.getString("Name"), rs.getString("Gender"), rs.getString("Age"), rs.getString("Race"), rs.getString("Occupation"), rs.getString("CharacterID")));
@@ -51,7 +62,8 @@ public class Database {
             // rs.getString("Name"),rs.getString("Location"),rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")
             }
         System.out.println("items list size: " + items_list.size());
-        }
+        because();
+    }
 
 
     public void updateChar(Character c) throws SQLException {
@@ -138,20 +150,26 @@ public class Database {
         }
     }
     public String getMaxcID() throws SQLException {
+        why();
         if (character_list.size() > 0){
             ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS ORDER BY CharacterID DESC LIMIT 1;" );
             return rs.getString("CharacterID");
         }
+        because();
         return "0";
+
     }
     public String getMaxiID() throws SQLException {
+        why();
         if (items_list.size() > 0){
             ResultSet rs = stat.executeQuery( "SELECT * FROM ITEMS ORDER BY ItemID DESC LIMIT 1;" );
             return rs.getString("ItemID");
         }
+        because();
         return "0";
     }
     public void queryitem(String Column, String input) throws SQLException{
+        why();
         filter_items.clear();
         ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS");
         int in_len = input.length();
@@ -166,10 +184,13 @@ public class Database {
                 }
             }
         }
+        because();
     }
     private void execute(String cmd) throws SQLException {
+        why();
         System.out.println(cmd);
         stat.execute(cmd);
+        because();
     }
     public ObservableList<Item> getFilter_Items(){return filter_items;}
     public ObservableList<Character> getFilter_Character(){System.out.println(filter_character.toString()); return filter_character;}
