@@ -1,13 +1,17 @@
 package GUI;
 
+import java.awt.Event;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import Data.Item;
 import Data.Character;
+import Data.Circumstance;
 import Database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,6 +25,7 @@ public class Controller {
 	
 	private Character selectedCharacter;
 	private Item selectedItem;
+	private Circumstance selectedEvent;
 	
 	@FXML
 	private SplitPane canvas;
@@ -46,12 +51,22 @@ public class Controller {
 	private TableColumn<Item, String> locationColumn;
 	@FXML
 	private TableColumn<Item, String> ownerColumn;
+
+	@FXML
+	private TableView<Circumstance> eventTable;
+	@FXML
+	private TableColumn<Circumstance, String> eventColumn;
+	@FXML 
+	private TableColumn<Circumstance, String> dateColumn;
+	@FXML
+	private TableColumn<Circumstance, String> subjectColumn;
 	
 	@FXML
 	private GridPane characterGrid;
-	
 	@FXML
 	private GridPane itemGrid;
+	@FXML
+	private GridPane eventGrid;
 	
 	@FXML
 	private TextField nameBox;
@@ -75,6 +90,12 @@ public class Controller {
 	private TextField locationBox;
 	
 	@FXML
+	private TextField eventBox;
+	
+	@FXML
+	private DatePicker datePicker;
+	
+	@FXML
 	private TextField characterFilter;
 	
 	@FXML 
@@ -86,9 +107,17 @@ public class Controller {
 	@FXML
 	private TextField itemLabel;
 	
+	@FXML
+	private TextField eventFilter;
+	
+	@FXML
+	private TextField eventLabel;
+	
 	private String CharacterID;
 	
 	private String ItemID;
+	
+	private String EventID;
 	
 	private boolean addCharFlag = false;
 	
@@ -97,6 +126,10 @@ public class Controller {
 	private boolean editCharFlag = false;
 	
 	private boolean editItemFlag = false;
+	
+	private boolean addEventFlag = false;
+	
+	private boolean editEventFlag = false;
 	
 	@FXML
 	public void initialize() {
@@ -119,6 +152,12 @@ public class Controller {
 		ownerColumn.setCellValueFactory(
 				cellData -> cellData.getValue().getOwnerProperty());
 
+		eventColumn.setCellValueFactory(
+				cellData -> cellData.getValue().getNameProperty());
+		dateColumn.setCellValueFactory(
+				cellData -> cellData.getValue().getDateProperty());
+		subjectColumn.setCellValueFactory(
+				cellData -> cellData.getValue().getSubjectProperty());
 		
 		canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
 		
@@ -127,6 +166,9 @@ public class Controller {
 		
 		itemTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> setSelectedItem(newValue));
+		
+		eventTable.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> setSelectedEvent(newValue));
 		
 		try {
 			database.load_db();
@@ -140,7 +182,9 @@ public class Controller {
 
 		characterTable.setItems(database.getCharacter_list());
 		
-		itemTable.setItems(database.getItems_list());
+		itemTable.setItems(database.getItem_list());
+		
+		eventTable.setItems(database.getEvent_list());
 		
 		try {
 			CharacterID = database.getMaxcID();
@@ -156,11 +200,20 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
+		try {
+			EventID = database.getMaxeID();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		incCharacterID();
 		incItemID();
+		incEventID();
 		
 		clearCharLabels();
 		clearItemLabels();
+		clearEventLabels();
 	}
 	
 	public void displayCharLabels() {
@@ -180,6 +233,13 @@ public class Controller {
 		}
 	}
 	
+	public void displayEventLabels() {
+		if (eventGrid.getChildren().isEmpty()) {
+			eventGrid.add(eventBox, 0, 0);
+			eventGrid.add(datePicker, 1, 0);
+		}
+	}
+	
 	public void clearCharLabels() {
 		characterGrid.getChildren().clear();
 		nameBox.clear();
@@ -195,6 +255,12 @@ public class Controller {
 		locationBox.clear();
 	}
 	
+	public void clearEventLabels() {
+		eventGrid.getChildren().clear();
+		eventBox.clear();
+		datePicker.setValue(null);
+	}
+	
 	public void incCharacterID() {
 		int charID = Integer.parseInt(CharacterID);
 		charID++;
@@ -207,6 +273,12 @@ public class Controller {
 		ItemID = Integer.toString(itID);
 	}
 	
+	public void incEventID() {
+		int evID = Integer.parseInt(EventID);
+		evID++;
+		EventID = Integer.toString(evID);
+	}
+	
 	public void setSelectedCharacter(Character character) {
 		if (character != null) {
 			selectedCharacter = character;
@@ -216,6 +288,12 @@ public class Controller {
 	public void setSelectedItem(Item item) {
 		if (item != null) {
 			selectedItem = item;
+		}
+	}
+	
+	public void setSelectedEvent(Circumstance event) {
+		if (event != null) {
+			selectedEvent = event;
 		}
 	}
 	
@@ -232,6 +310,12 @@ public class Controller {
 			}
 			if (editItemFlag) {
 				editItem();
+			}
+			if (addEventFlag) {
+				addEvent();
+			}
+			if (editEventFlag) {
+				editEvent();
 			}
 		}
 		
@@ -274,6 +358,22 @@ public class Controller {
 		}
 	}
 	
+	public void addEvent() {
+		if (!eventBox.getText().isEmpty()) {
+			Circumstance event = new Circumstance(eventBox.getText(), 
+					datePicker.getValue().toString(), "None", "0", EventID);
+			try {
+				database.addEvent(event);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			addEventFlag = false;
+			incEventID();
+			clearEventLabels();
+		}
+	}
+	
 	public void editCharacter() {
 		if (!nameBox.getText().isEmpty() 
 				&& database.getCharacter_list().contains(selectedCharacter)) {
@@ -289,11 +389,19 @@ public class Controller {
 	
 	public void editItem() {
 		if (!itemBox.getText().isEmpty() 
-				&& database.getItems_list().contains(selectedItem)) {
+				&& database.getItem_list().contains(selectedItem)) {
 			selectedItem.setName(itemBox.getText());
 			selectedItem.setLocation(locationBox.getText());
 			clearItemLabels();
 			editItemFlag = false;
+		}
+	}
+	
+	public void editEvent() {
+		if (!eventBox.getText().isEmpty() 
+				&& database.getEvent_list().contains(selectedEvent)) {
+			selectedEvent.setName(eventBox.getText());
+			selectedEvent.setDate(datePicker.getValue().toString());
 		}
 	}
 	
@@ -310,7 +418,7 @@ public class Controller {
 	}
 	
 	public void deleteItem() {
-		if (database.getItems_list().contains(selectedItem)) {
+		if (database.getItem_list().contains(selectedItem)) {
 			try {
 				database.deleteItem(selectedItem);
 				escapeAction();
@@ -321,9 +429,21 @@ public class Controller {
 		}
 	}
 	
+	public void deleteEvent() {
+		if (database.getEvent_list().contains(selectedEvent)) {
+			try {
+				database.deleteEvent(selectedEvent);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void addCharacterDisplay() {
 		clearCharLabels();
 		displayCharLabels();
+		editCharFlag = false;
 		addCharFlag = true;
 	}
 	
@@ -336,6 +456,7 @@ public class Controller {
 			ageBox.setText(selectedCharacter.getAge());
 			raceBox.setText(selectedCharacter.getRace());
 			occupationBox.setText(selectedCharacter.getOccupation());
+			addCharFlag = false;
 			editCharFlag = true;
 		}
 	}
@@ -343,34 +464,68 @@ public class Controller {
 	public void addItemDisplay() {
 		clearItemLabels();
 		displayItemLabels();
+		editItemFlag = false;
 		addItemFlag = true;
 	}
 	
 	public void editItemDisplay() {
-		if (database.getItems_list().contains(selectedItem)) {
+		if (database.getItem_list().contains(selectedItem)) {
 			clearItemLabels();
 			displayItemLabels();
 			itemBox.setText(selectedItem.getName());
 			locationBox.setText(selectedItem.getLocation());
+			addCharFlag = false;
 			editCharFlag = true;
+		}
+	}
+	
+	public void addEventDisplay() {
+		clearEventLabels();
+		displayEventLabels();
+		editEventFlag = false;
+		addEventFlag = true;
+	}
+	
+	public void editEventDisplay() {
+		if (database.getEvent_list().contains(selectedEvent)) {
+			clearEventLabels();
+			displayEventLabels();
+			eventBox.setText(selectedEvent.getName());
+			addEventFlag = false;
+			editEventFlag = true;
 		}
 	}
 	
 	public void assignOwner() {
 		if (database.getCharacter_list().contains(selectedCharacter)
-				&& database.getItems_list().contains(selectedItem)) {
+				&& database.getItem_list().contains(selectedItem)) {
 			selectedItem.setOwner(selectedCharacter.getName());
 			selectedItem.setoID(selectedCharacter.getcID());
 		}
 	}
 	
 	public void removeOwner() {
-		if (database.getItems_list().contains(selectedItem)) {
+		if (database.getItem_list().contains(selectedItem)) {
 			selectedItem.setOwner("None");
 			selectedItem.setoID("0");
 		}
 	}
-	@FXML
+	
+	public void assignSubject() {
+		if (database.getCharacter_list().contains(selectedCharacter) 
+				&& database.getEvent_list().contains(selectedEvent)) {
+			selectedEvent.setSubject(selectedCharacter.getName());
+			selectedEvent.setsID(selectedCharacter.getcID());
+		}
+	}
+	
+	public void removeSubject() {
+		if (database.getEvent_list().contains(selectedEvent)) {
+			selectedEvent.setSubject("None");
+			selectedEvent.setsID("0");
+		}
+	}
+	
 	public void filterCharacters() {
 		if (!characterLabel.getText().isEmpty()
 				&& !characterFilter.getText().isEmpty()) {
@@ -388,7 +543,7 @@ public class Controller {
 			characterTable.setItems(database.getCharacter_list());
 		}
 	}
-	@FXML
+
 	public void filterItems() {
 		if (!itemLabel.getText().isEmpty()
 				&& !itemFilter.getText().isEmpty()) {
@@ -403,8 +558,26 @@ public class Controller {
 		}
 		
 		else {
-			itemTable.setItems(database.getItems_list());
+			itemTable.setItems(database.getItem_list());
 		}		
+	}
+	
+	public void filterEvents() {
+		if (!eventLabel.getText().isEmpty()
+				&& !eventFilter.getText().isEmpty()) {
+			try {
+				database.queryEvent(eventLabel.getText(), 
+						eventFilter.getText());
+				eventTable.setItems(database.getFilter_Event());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else {
+			eventTable.setItems(database.getEvent_list());
+		}
 	}
 	
 	public void displayInventory() {
@@ -419,12 +592,29 @@ public class Controller {
 		}
 	}
 	
+	public void displayEvents() {
+		if (database.getCharacter_list().contains(selectedCharacter)) {
+			try {
+				database.queryitem("CharacterID", selectedCharacter.getcID());
+				eventTable.setItems(database.getFilter_Event());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			
+		}
+	}
+	
 	public void clearCharFilter() {
 		characterTable.setItems(database.getCharacter_list());
 	}
 	
 	public void clearItemFilter() {
-		itemTable.setItems(database.getItems_list());
+		itemTable.setItems(database.getItem_list());
+	}
+	
+	public void clearEventFilter() {
+		eventTable.setItems(database.getEvent_list());
 	}
 	
 	public void escapeAction() {

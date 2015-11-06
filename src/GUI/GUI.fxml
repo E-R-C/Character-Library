@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane fx:id="canvas" dividerPositions="0.6328320802005013" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+<SplitPane fx:id="canvas" dividerPositions="0.6276463262764632" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0">
          <children>
@@ -24,14 +24,14 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button layoutY="338.0" mnemonicParsing="false" onAction="#addCharacterDisplay" prefWidth="150.0" text="New Character" />
-            <Button layoutX="151.0" layoutY="338.0" mnemonicParsing="false" onAction="#editCharacterDisplay" prefWidth="150.0" text="Edit Character" />
-            <Button layoutX="301.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteCharacter" prefWidth="200.0" text="Delete Character" />
+            <Button layoutY="388.0" mnemonicParsing="false" onAction="#addCharacterDisplay" prefWidth="150.0" text="New Character" />
+            <Button layoutX="150.0" layoutY="388.0" mnemonicParsing="false" onAction="#editCharacterDisplay" prefWidth="150.0" text="Edit Character" />
+            <Button layoutX="300.0" layoutY="388.0" mnemonicParsing="false" onAction="#deleteCharacter" prefWidth="200.0" text="Delete Character" />
             <Button layoutX="251.0" layoutY="235.0" mnemonicParsing="false" onAction="#displayInventory" prefWidth="250.0" text="Display Character  Inventory" />
             <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterCharacters" prefWidth="150.0" text="Filter Characters" />
             <TextField fx:id="characterLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
             <TextField fx:id="characterFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
-            <GridPane fx:id="characterGrid" layoutY="368.0">
+            <GridPane fx:id="characterGrid" layoutY="419.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -51,41 +51,91 @@
                </children>
             </GridPane>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0">
-         <children>
-            <Button layoutX="145.0" layoutY="266.0" mnemonicParsing="false" onAction="#removeOwner" prefWidth="150.0" text="Remove Owner" />
-            <TableView fx:id="itemTable" layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
-              <columns>
-                <TableColumn fx:id="itemColumn" prefWidth="100.0" text="Item" />
-                <TableColumn fx:id="locationColumn" prefWidth="100.0" text="Location" />
-                  <TableColumn fx:id="ownerColumn" prefWidth="100.0" text="Owner" />
-              </columns>
-            </TableView>
-            <Text layoutX="89.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Table">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Button layoutX="-5.0" layoutY="338.0" mnemonicParsing="false" onAction="#addItemDisplay" prefWidth="100.0" text="New Item" />
-            <Button layoutX="95.0" layoutY="338.0" mnemonicParsing="false" onAction="#editItemDisplay" prefWidth="100.0" text="Edit Item" />
-            <Button layoutX="195.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteItem" prefWidth="100.0" text="Delete Item" />
-            <Button layoutX="145.0" layoutY="235.0" mnemonicParsing="false" onAction="#assignOwner" prefWidth="150.0" text="Assign Owner" />
-            <TextField fx:id="itemFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
-            <TextField fx:id="itemLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
-            <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterItems" prefWidth="150.0" text="Filter Items" />
-            <GridPane fx:id="itemGrid" layoutX="-5.0" layoutY="369.0" prefWidth="200.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TextField fx:id="itemBox" prefWidth="100.0" promptText="Item" />
-                  <TextField fx:id="locationBox" prefWidth="100.0" promptText="Location" GridPane.columnIndex="1" />
-               </children>
-            </GridPane>
-         </children></AnchorPane>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Untitled Tab 1">
+               <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <Button layoutX="145.0" layoutY="266.0" mnemonicParsing="false" onAction="#removeOwner" prefWidth="150.0" text="Remove Owner" />
+                        <TableView fx:id="itemTable" layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
+                          <columns>
+                            <TableColumn fx:id="itemColumn" prefWidth="100.0" text="Item" />
+                            <TableColumn fx:id="locationColumn" prefWidth="100.0" text="Location" />
+                              <TableColumn fx:id="ownerColumn" prefWidth="100.0" text="Owner" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="89.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Table">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Button layoutY="349.0" mnemonicParsing="false" onAction="#addItemDisplay" prefWidth="100.0" text="New Item" />
+                        <Button layoutX="100.0" layoutY="349.0" mnemonicParsing="false" onAction="#editItemDisplay" prefWidth="100.0" text="Edit Item" />
+                        <Button layoutX="200.0" layoutY="349.0" mnemonicParsing="false" onAction="#deleteItem" prefWidth="100.0" text="Delete Item" />
+                        <Button layoutX="145.0" layoutY="235.0" mnemonicParsing="false" onAction="#assignOwner" prefWidth="150.0" text="Assign Owner" />
+                        <TextField fx:id="itemFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
+                        <TextField fx:id="itemLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
+                        <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterItems" prefWidth="150.0" text="Filter Items" />
+                        <GridPane fx:id="itemGrid" layoutY="380.0" prefWidth="200.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <TextField fx:id="itemBox" prefWidth="100.0" promptText="Item" />
+                              <TextField fx:id="locationBox" prefWidth="100.0" promptText="Location" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab text="Untitled Tab 2">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="88.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Table">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="eventTable" layoutX="-1.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
+                           <columns>
+                              <TableColumn fx:id="eventColumn" prefWidth="100.0" text="Event" />
+                              <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
+                              <TableColumn fx:id="subjectColumn" prefWidth="100.0" text="Subject" />
+                           </columns>
+                        </TableView>
+                        <GridPane fx:id="eventGrid" layoutX="-1.0" layoutY="380.0" prefWidth="300.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField fx:id="eventBox" prefWidth="100.0" promptText="Event" />
+                              <DatePicker fx:id="datePicker" promptText="Date" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Button layoutX="-1.0" layoutY="235.0" mnemonicParsing="false" onAction="#filterEvents" prefWidth="150.0" text="Filter Events" />
+                        <TextField fx:id="eventLabel" layoutX="-1.0" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
+                        <TextField fx:id="eventFilter" layoutX="-1.0" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
+                        <Button layoutX="149.0" layoutY="235.0" mnemonicParsing="false" onAction="#assignSubject" prefWidth="150.0" text="Assign Subject" />
+                        <Button layoutX="199.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteEvent" prefWidth="100.0" text="Erase Event" />
+                        <Button layoutX="99.0" layoutY="349.0" mnemonicParsing="false" onAction="#editEventDisplay" prefWidth="100.0" text="Edit Event" />
+                        <Button layoutX="-1.0" layoutY="349.0" mnemonicParsing="false" onAction="#addEventDisplay" prefWidth="100.0" text="New Event" />
+                        <Button layoutX="149.0" layoutY="266.0" mnemonicParsing="false" onAction="#removeSubject" prefWidth="150.0" text="Remove Subject" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
   </items>
 </SplitPane>

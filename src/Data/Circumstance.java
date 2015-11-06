@@ -40,7 +40,7 @@ public class Circumstance {
     	date.set(blankChecker(word));
     }
         
-    public void setsubject(String word){
+    public void setSubject(String word){
     	subject.set(blankChecker(word));
     }
     
