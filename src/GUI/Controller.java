@@ -622,8 +622,11 @@ public class Controller {
 		editCharFlag = false;
 		addItemFlag = false;
 		editItemFlag = false;
+		addEventFlag = false;
+		editEventFlag = false;
 		clearCharLabels();
 		clearItemLabels();
+		clearEventLabels();
 	}
 	
 }
