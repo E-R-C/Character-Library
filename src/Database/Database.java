@@ -80,6 +80,10 @@ public class Database {
         String cmd = "UPDATE ITEMS SET Name =" + i.getName() + ", Location = " + i.getLocation() + ", Owner = " + i.getOwner() + ", CharacterID = " + i.getoID() + ", WHERE ItemID = " + i.getiID() + ";";
         execute(cmd);
     }
+    public void updateEvent(Circumstance e) throws SQLException{
+        String cmd = "UPDATE EVENTS GET Name =" + e.getName() + ", Date = " + e.getDate() + ", Subject = " + e.getSubject() + ", CharacterID = " + e.getsID() + ", WHERE EventID = " + e.geteID() + ";";
+        execute(cmd);
+    }
     public void addChar(Character c) throws SQLException {
         why();
         // instead of item. we could add each of the column inputs. it may be better that way.
