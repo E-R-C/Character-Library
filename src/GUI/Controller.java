@@ -378,8 +378,7 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			editEventFlag = false;
-			addEventFlag = true;
+			addEventFlag = false;
 			incEventID();
 			clearEventLabels();
 		}

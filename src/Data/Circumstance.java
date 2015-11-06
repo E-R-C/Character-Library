@@ -20,8 +20,8 @@ public class Circumstance {
     	this.name = new SimpleStringProperty(blankChecker(name));
     	this.date = new SimpleStringProperty(blankChecker(date));
     	this.subject = new SimpleStringProperty(blankChecker(subject));
-    	this.sID = new SimpleStringProperty(blankChecker(sID));
-    	this.eID = new SimpleStringProperty(blankChecker(eID));
+    	this.sID = new SimpleStringProperty(sID);
+    	this.eID = new SimpleStringProperty(eID);
     	
     }
     

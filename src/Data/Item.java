@@ -26,8 +26,8 @@ public class Item {
     	this.name = new SimpleStringProperty(blankChecker(name));
     	this.location = new SimpleStringProperty(blankChecker(location));
     	this.owner = new SimpleStringProperty(blankChecker(owner));
-    	this.oID = new SimpleStringProperty(blankChecker(oID));
-    	this.iID = new SimpleStringProperty(blankChecker(iID));
+    	this.oID = new SimpleStringProperty(oID);
+    	this.iID = new SimpleStringProperty(iID);
     }
     
     public String blankChecker(String word){
