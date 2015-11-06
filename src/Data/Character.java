@@ -17,12 +17,12 @@ public class Character {
     private StringProperty cID;
   
     public Character(String name, String gender, String age, String race, String occupation, String cID){
-    	this.name = new SimpleStringProperty(name);
-    	this.gender = new SimpleStringProperty(gender);
-    	this.age = new SimpleStringProperty(age);
-    	this.race = new SimpleStringProperty(race);
-    	this.occupation = new SimpleStringProperty(occupation);
-    	this.cID = new SimpleStringProperty(cID);
+    	this.name = new SimpleStringProperty(blankChecker(name));
+    	this.gender = new SimpleStringProperty(blankChecker(gender));
+    	this.age = new SimpleStringProperty(blankChecker(age));
+    	this.race = new SimpleStringProperty(blankChecker(race));
+    	this.occupation = new SimpleStringProperty(blankChecker(occupation));
+    	this.cID = new SimpleStringProperty(blankChecker(cID));
     }
     
     public String blankChecker(String word){
