@@ -325,6 +325,16 @@ public class Controller {
 		
 	}
 	
+	public String parseDatePicker() {
+		if (datePicker.getValue() != null) {
+			return datePicker.getValue().toString();
+		}
+		
+		else {
+			return "Unknown";
+		}
+	}
+	
 	public void addCharacter() {
 		if (!nameBox.getText().isEmpty()) {
 			Character character = new Character(nameBox.getText(), 
@@ -361,7 +371,7 @@ public class Controller {
 	public void addEvent() {
 		if (!eventBox.getText().isEmpty()) {
 			Circumstance event = new Circumstance(eventBox.getText(), 
-					datePicker.getValue().toString(), "None", "0", EventID);
+					parseDatePicker(), "None", "0", EventID);
 			try {
 				database.addEvent(event);
 			} catch (SQLException e) {
@@ -382,6 +392,12 @@ public class Controller {
 			selectedCharacter.setAge(ageBox.getText());
 			selectedCharacter.setRace(raceBox.getText());
 			selectedCharacter.setOccupation(occupationBox.getText());
+			try {
+				database.updateChar(selectedCharacter);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			clearCharLabels();
 			editCharFlag = false;
 		}
@@ -392,6 +408,12 @@ public class Controller {
 				&& database.getItem_list().contains(selectedItem)) {
 			selectedItem.setName(itemBox.getText());
 			selectedItem.setLocation(locationBox.getText());
+			try {
+				database.updateItem(selectedItem);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			clearItemLabels();
 			editItemFlag = false;
 		}
@@ -401,7 +423,15 @@ public class Controller {
 		if (!eventBox.getText().isEmpty() 
 				&& database.getEvent_list().contains(selectedEvent)) {
 			selectedEvent.setName(eventBox.getText());
-			selectedEvent.setDate(datePicker.getValue().toString());
+			selectedEvent.setDate(parseDatePicker());
+			try {
+				database.updateEvent(selectedEvent);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			clearEventLabels();
+			editEventFlag = false;
 		}
 	}
 	
