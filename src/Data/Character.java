@@ -25,28 +25,35 @@ public class Character {
     	this.cID = new SimpleStringProperty(cID);
     }
     
+    public String blankChecker(String word){
+    	if(!word.equals(""))
+    		return word;
+    	else
+    		return "Unknown";
+    }
+    
     public void setName(String word){
-    	name.set(word);
+    	name.set(blankChecker(word));
     }
     
     public void setAge(String word){
-    	age.set(word);
+    	age.set(blankChecker(word));
     }
     
     public void setGender(String word){
-    	gender.set(word);
+    	gender.set(blankChecker(word));
     }
     
     public void setRace(String word){
-    	race.set(word);
+    	race.set(blankChecker(word));
     }
     
     public void setOccupation(String word){
-    	occupation.set(word);
+    	occupation.set(blankChecker(word));
     }
     
     public void setcID(String c){
-    	cID.set(c);
+    	cID.set(blankChecker(c));
     }
     
     public String getName() {return name.get();} 

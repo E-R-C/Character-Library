@@ -23,31 +23,38 @@ public class Item {
     }    
     
     public Item(String name, String location, String owner, String oID, String iID){
-    	this.name = new SimpleStringProperty(name);
-    	this.location = new SimpleStringProperty(location);
-    	this.owner = new SimpleStringProperty(owner);
-    	this.oID = new SimpleStringProperty(oID);
-    	this.iID = new SimpleStringProperty(iID);
+    	this.name = new SimpleStringProperty(blankChecker(name));
+    	this.location = new SimpleStringProperty(blankChecker(location));
+    	this.owner = new SimpleStringProperty(blankChecker(owner));
+    	this.oID = new SimpleStringProperty(blankChecker(oID));
+    	this.iID = new SimpleStringProperty(blankChecker(iID));
+    }
+    
+    public String blankChecker(String word){
+    	if(!word.equals(""))
+    		return word;
+    	else
+    		return "Unknown";
     }
     
     public void setName(String word){
-    	name.set(word);
+    	name.set(blankChecker(word));
     }
     
     public void setLocation(String word){
-    	location.set(word);
+    	location.set(blankChecker(word));
     }
     
     public void setOwner(String word){
-    	owner.set(word);
+    	owner.set(blankChecker(word));
     }
    
     public void setiID(String i){
-    	iID.set(i);
+    	iID.set(blankChecker(i));
     }
     
     public void setoID(String o){
-    	oID.set(o);
+    	oID.set(blankChecker(o));
     }
     
     public String getName() {return name.get();} 
