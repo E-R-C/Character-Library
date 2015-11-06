@@ -8,7 +8,7 @@
 
 <SplitPane fx:id="canvas" dividerPositions="0.6276463262764632" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0">
+    <AnchorPane fx:id="charCanvas" minHeight="0.0" minWidth="0.0">
          <children>
             <TableView fx:id="characterTable" layoutY="35.0" prefHeight="200.0" prefWidth="500.0">
               <columns>
@@ -53,9 +53,9 @@
          </children></AnchorPane>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab text="Items">
                <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0">
+                <AnchorPane fx:id="itemCanvas" minHeight="0.0" minWidth="0.0">
                      <children>
                         <Button layoutX="145.0" layoutY="266.0" mnemonicParsing="false" onAction="#removeOwner" prefWidth="150.0" text="Remove Owner" />
                         <TableView fx:id="itemTable" layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
@@ -94,9 +94,9 @@
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab text="Events">
                <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="eventCanvas" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Text layoutX="88.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Table">
                            <font>
