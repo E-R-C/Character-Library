@@ -7,7 +7,7 @@ package Data;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Event {
+public class Circumstance {
     
     private StringProperty name;
     private StringProperty date;
@@ -16,7 +16,7 @@ public class Event {
     private StringProperty eID;
     
     
-    public Event(String name, String date, String subject, String sID, String eID){
+    public Circumstance(String name, String date, String subject, String sID, String eID){
     	this.name = new SimpleStringProperty(blankChecker(name));
     	this.date = new SimpleStringProperty(blankChecker(date));
     	this.subject = new SimpleStringProperty(blankChecker(subject));
