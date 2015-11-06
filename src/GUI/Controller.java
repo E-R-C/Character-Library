@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 
 public class Controller {
 	
@@ -45,6 +46,12 @@ public class Controller {
 	private TableColumn<Item, String> locationColumn;
 	@FXML
 	private TableColumn<Item, String> ownerColumn;
+	
+	@FXML
+	private GridPane characterGrid;
+	
+	@FXML
+	private GridPane itemGrid;
 	
 	@FXML
 	private TextField nameBox;
@@ -83,6 +90,13 @@ public class Controller {
 	
 	private String ItemID;
 	
+	private boolean addCharFlag = false;
+	
+	private boolean addItemFlag = false;
+	
+	private boolean editCharFlag = false;
+	
+	private boolean editItemFlag = false;
 	
 	@FXML
 	public void initialize() {
@@ -144,6 +158,41 @@ public class Controller {
 		
 		incCharacterID();
 		incItemID();
+		
+		clearCharLabels();
+		clearItemLabels();
+	}
+	
+	public void displayCharLabels() {
+		if (characterGrid.getChildren().isEmpty()) {
+			characterGrid.add(nameBox, 0, 0);
+			characterGrid.add(genderBox, 1, 0);
+			characterGrid.add(ageBox, 2, 0);
+			characterGrid.add(raceBox, 3, 0);
+			characterGrid.add(occupationBox, 4, 0);
+		}
+	}
+	
+	public void displayItemLabels() {
+		if (itemGrid.getChildren().isEmpty()) {
+			itemGrid.add(itemBox, 0, 0);
+			itemGrid.add(locationBox, 1, 0);
+		}
+	}
+	
+	public void clearCharLabels() {
+		characterGrid.getChildren().clear();
+		nameBox.clear();
+		genderBox.clear();
+		ageBox.clear();
+		raceBox.clear();
+		occupationBox.clear();
+	}
+	
+	public void clearItemLabels() {
+		itemGrid.getChildren().clear();
+		itemBox.clear();
+		locationBox.clear();
 	}
 	
 	public void incCharacterID() {
@@ -171,6 +220,24 @@ public class Controller {
 	}
 	
 	public void handlePress (KeyCode code) {
+		if (code == KeyCode.ENTER) {
+			if (addCharFlag) {
+				addCharacter();
+			}
+			if (addItemFlag) {
+				addItem();
+			}
+			if (editCharFlag) {
+				editCharacter();
+			}
+			if (editItemFlag) {
+				editItem();
+			}
+		}
+		
+		if (code == KeyCode.ESCAPE) {
+			escapeAction();
+		}
 		
 	}
 	
@@ -185,12 +252,9 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			addCharFlag = false;
 			incCharacterID();
-			nameBox.clear();
-			genderBox.clear();
-			ageBox.clear();
-			raceBox.clear();
-			occupationBox.clear();
+			clearCharLabels();
 		}
 	}
 	
@@ -204,9 +268,9 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			addItemFlag = false;
 			incItemID();
-			itemBox.clear();
-			locationBox.clear();
+			clearItemLabels();
 		}
 	}
 	
@@ -218,6 +282,8 @@ public class Controller {
 			selectedCharacter.setAge(ageBox.getText());
 			selectedCharacter.setRace(raceBox.getText());
 			selectedCharacter.setOccupation(occupationBox.getText());
+			clearCharLabels();
+			editCharFlag = false;
 		}
 	}
 	
@@ -226,6 +292,8 @@ public class Controller {
 				&& database.getItems_list().contains(selectedItem)) {
 			selectedItem.setName(itemBox.getText());
 			selectedItem.setLocation(locationBox.getText());
+			clearItemLabels();
+			editItemFlag = false;
 		}
 	}
 	
@@ -233,6 +301,7 @@ public class Controller {
 		if (database.getCharacter_list().contains(selectedCharacter)) {
 			try {
 				database.deleteChar(selectedCharacter);
+				escapeAction();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -244,10 +313,46 @@ public class Controller {
 		if (database.getItems_list().contains(selectedItem)) {
 			try {
 				database.deleteItem(selectedItem);
+				escapeAction();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public void addCharacterDisplay() {
+		clearCharLabels();
+		displayCharLabels();
+		addCharFlag = true;
+	}
+	
+	public void editCharacterDisplay() {
+		if (database.getCharacter_list().contains(selectedCharacter)) {
+			clearCharLabels();
+			displayCharLabels();
+			nameBox.setText(selectedCharacter.getName());
+			genderBox.setText(selectedCharacter.getGender());
+			ageBox.setText(selectedCharacter.getAge());
+			raceBox.setText(selectedCharacter.getRace());
+			occupationBox.setText(selectedCharacter.getOccupation());
+			editCharFlag = true;
+		}
+	}
+	
+	public void addItemDisplay() {
+		clearItemLabels();
+		displayItemLabels();
+		addItemFlag = true;
+	}
+	
+	public void editItemDisplay() {
+		if (database.getItems_list().contains(selectedItem)) {
+			clearItemLabels();
+			displayItemLabels();
+			itemBox.setText(selectedItem.getName());
+			locationBox.setText(selectedItem.getLocation());
+			editCharFlag = true;
 		}
 	}
 	
@@ -306,11 +411,29 @@ public class Controller {
 		if (database.getCharacter_list().contains(selectedCharacter)) {
 			try {
 				database.queryitem("CharacterID", selectedCharacter.getcID());
+				itemTable.setItems(database.getFilter_Items());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void clearCharFilter() {
+		characterTable.setItems(database.getCharacter_list());
+	}
+	
+	public void clearItemFilter() {
+		itemTable.setItems(database.getItems_list());
+	}
+	
+	public void escapeAction() {
+		addCharFlag = false;
+		editCharFlag = false;
+		addItemFlag = false;
+		editItemFlag = false;
+		clearCharLabels();
+		clearItemLabels();
 	}
 	
 }

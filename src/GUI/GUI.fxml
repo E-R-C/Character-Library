@@ -24,18 +24,32 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button layoutY="338.0" mnemonicParsing="false" onAction="#addCharacter" prefWidth="150.0" text="New Character" />
-            <Button layoutX="151.0" layoutY="338.0" mnemonicParsing="false" onAction="#editCharacter" prefWidth="150.0" text="Edit Character" />
+            <Button layoutY="338.0" mnemonicParsing="false" onAction="#addCharacterDisplay" prefWidth="150.0" text="New Character" />
+            <Button layoutX="151.0" layoutY="338.0" mnemonicParsing="false" onAction="#editCharacterDisplay" prefWidth="150.0" text="Edit Character" />
             <Button layoutX="301.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteCharacter" prefWidth="200.0" text="Delete Character" />
-            <TextField fx:id="nameBox" layoutX="1.0" layoutY="369.0" prefWidth="100.0" promptText="Name" />
-            <TextField fx:id="genderBox" layoutX="101.0" layoutY="369.0" prefWidth="100.0" promptText="Gender" />
-            <TextField fx:id="ageBox" layoutX="201.0" layoutY="369.0" prefWidth="100.0" promptText="Age" />
-            <TextField fx:id="raceBox" layoutX="301.0" layoutY="369.0" prefWidth="100.0" promptText="Race" />
-            <TextField fx:id="occupationBox" layoutX="401.0" layoutY="369.0" prefWidth="100.0" promptText="Occupation" />
             <Button layoutX="251.0" layoutY="235.0" mnemonicParsing="false" onAction="#displayInventory" prefWidth="250.0" text="Display Character  Inventory" />
             <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterCharacters" prefWidth="150.0" text="Filter Characters" />
             <TextField fx:id="characterLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
             <TextField fx:id="characterFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
+            <GridPane fx:id="characterGrid" layoutY="368.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="nameBox" prefWidth="100.0" promptText="Name" />
+                  <TextField fx:id="genderBox" prefWidth="100.0" promptText="Gender" GridPane.columnIndex="1" />
+                  <TextField fx:id="ageBox" prefWidth="100.0" promptText="Age" GridPane.columnIndex="2" />
+                  <TextField fx:id="raceBox" prefWidth="100.0" promptText="Race" GridPane.columnIndex="3" />
+                  <TextField fx:id="occupationBox" prefWidth="100.0" promptText="Occupation" GridPane.columnIndex="4" />
+               </children>
+            </GridPane>
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0">
          <children>
@@ -52,15 +66,26 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button layoutX="-5.0" layoutY="338.0" mnemonicParsing="false" onAction="#addItem" prefWidth="100.0" text="New Item" />
-            <Button layoutX="95.0" layoutY="338.0" mnemonicParsing="false" onAction="#editItem" prefWidth="100.0" text="Edit Item" />
+            <Button layoutX="-5.0" layoutY="338.0" mnemonicParsing="false" onAction="#addItemDisplay" prefWidth="100.0" text="New Item" />
+            <Button layoutX="95.0" layoutY="338.0" mnemonicParsing="false" onAction="#editItemDisplay" prefWidth="100.0" text="Edit Item" />
             <Button layoutX="195.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteItem" prefWidth="100.0" text="Delete Item" />
-            <Button layoutX="145.0" layoutY="235.0" mnemonicParsing="false" prefWidth="150.0" text="Assign Owner" />
-            <TextField fx:id="itemBox" layoutX="-5.0" layoutY="369.0" prefWidth="100.0" promptText="Item" />
-            <TextField fx:id="locationBox" layoutX="95.0" layoutY="369.0" prefWidth="100.0" promptText="Location" />
+            <Button layoutX="145.0" layoutY="235.0" mnemonicParsing="false" onAction="#assignOwner" prefWidth="150.0" text="Assign Owner" />
             <TextField fx:id="itemFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
             <TextField fx:id="itemLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
             <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterItems" prefWidth="150.0" text="Filter Items" />
+            <GridPane fx:id="itemGrid" layoutX="-5.0" layoutY="369.0" prefWidth="200.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="itemBox" prefWidth="100.0" promptText="Item" />
+                  <TextField fx:id="locationBox" prefWidth="100.0" promptText="Location" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
          </children></AnchorPane>
   </items>
 </SplitPane>
