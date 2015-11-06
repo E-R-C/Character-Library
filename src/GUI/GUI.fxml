@@ -120,7 +120,7 @@
                            </rowConstraints>
                            <children>
                               <TextField fx:id="eventBox" prefWidth="100.0" promptText="Event" />
-                              <DatePicker fx:id="datePicker" promptText="Date" GridPane.columnIndex="1" />
+                              <DatePicker fx:id="datePicker" onAction="#eventBoxFocus" promptText="Date" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <Button layoutX="-1.0" layoutY="235.0" mnemonicParsing="false" onAction="#filterEvents" prefWidth="150.0" text="Filter Events" />

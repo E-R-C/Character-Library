@@ -352,6 +352,10 @@ public class Controller {
 		}
 	}
 	
+	public void eventBoxFocus() {
+		eventBox.requestFocus();
+	}
+	
 	public String parseDatePicker() {
 		if (datePicker.getValue() != null) {
 			return datePicker.getValue().toString();
