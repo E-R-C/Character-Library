@@ -95,7 +95,11 @@ public class Database {
         String cmd = "INSERT INTO ITEMS (Name, Location, Owner, CharacterID, ItemID) VALUES ('" +
                 item.getName() + "','" + item.getLocation() + "','" + item.getOwner() + "','" + item.getoID() + "','" + item.getiID() + "');";
         execute(cmd);
-
+    }
+    public void addEvent(Circumstance event) throws SQLException{
+        event_list.add(event);
+        String cmd = "INSERT INTO ITEMS (Name, Date, Subject, CharacterID, EventID) VALUES ('" +
+                event.getName() + "','" + event.getDate() + "','" + event.getSubject() +"," + event.getsID() + "','" + event.geteID() + "');";
     }
     public void deleteItem(Item item) throws SQLException {
         String cmd = "DELETE from ITEMS where ItemID=" + item.getiID() + ";";
@@ -235,11 +239,13 @@ public class Database {
         stat.execute(cmd);
         because();
     }
-
+    public ObservableList<Circumstance> getFilter_Event(){return filter_Event;}
     public ObservableList<Item> getFilter_Items(){return filter_items;}
-    public ObservableList<Character> getFilter_Character(){System.out.println(filter_character.toString()); return filter_character;}
+    public ObservableList<Character> getFilter_Character(){return filter_character;}
     public ObservableList<Item> getItem_list(){return item_list;}
     public ObservableList<Character> getCharacter_list(){return character_list;}
+    public ObservableList<Circumstance> getEvent_list(){return event_list;}
+
 
 
 
