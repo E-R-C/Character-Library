@@ -7,9 +7,8 @@ package Data;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Circumstance {
-    
-    private StringProperty name;
+public class Circumstance extends Entry{
+   
     private StringProperty date;
     private StringProperty subject;
     private StringProperty sID;
@@ -25,17 +24,6 @@ public class Circumstance {
     	
     }
     
-    public String blankChecker(String word){
-    	if(!word.equals(""))
-    		return word;
-    	else
-    		return "Unknown";
-    }
-    
-    public void setName(String word){
-    	name.set(blankChecker(word));
-    }
-
     public void setDate(String word){
     	date.set(blankChecker(word));
     }
@@ -52,8 +40,6 @@ public class Circumstance {
     	eID.set(blankChecker(e));
     }
     
-    public String getName() {return name.get();} 
-	public StringProperty getNameProperty() {return name;}
 	public String getDate() {return date.get();}
 	public StringProperty getDateProperty() {return date;}
 	public String getSubject() {return subject.get();} 

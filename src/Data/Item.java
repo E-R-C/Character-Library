@@ -7,9 +7,8 @@ package Data;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Item {
+public class Item extends Entry{
     
-    private StringProperty name;
     private StringProperty location;
     private StringProperty owner;
     private StringProperty iID;
@@ -30,17 +29,6 @@ public class Item {
     	this.iID = new SimpleStringProperty(iID);
     }
     
-    public String blankChecker(String word){
-    	if(!word.equals(""))
-    		return word;
-    	else
-    		return "Unknown";
-    }
-    
-    public void setName(String word){
-    	name.set(blankChecker(word));
-    }
-    
     public void setLocation(String word){
     	location.set(blankChecker(word));
     }
@@ -57,8 +45,6 @@ public class Item {
     	oID.set(blankChecker(o));
     }
     
-    public String getName() {return name.get();} 
-	public StringProperty getNameProperty() {return name;}
 	public String getLocation() {return location.get();}
 	public StringProperty getLocationProperty() {return location;}
 	public String getOwner() {return owner.get();}

@@ -7,9 +7,8 @@ package Data;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Character {
+public class Character extends Entry{
 	
-    private StringProperty name;
     private StringProperty age;
     private StringProperty gender;
     private StringProperty race;
@@ -23,17 +22,6 @@ public class Character {
     	this.race = new SimpleStringProperty(blankChecker(race));
     	this.occupation = new SimpleStringProperty(blankChecker(occupation));
     	this.cID = new SimpleStringProperty(cID);
-    }
-    
-    public String blankChecker(String word){
-    	if(!word.equals(""))
-    		return word;
-    	else
-    		return "Unknown";
-    }
-    
-    public void setName(String word){
-    	name.set(blankChecker(word));
     }
     
     public void setAge(String word){
@@ -56,8 +44,6 @@ public class Character {
     	cID.set(blankChecker(c));
     }
     
-    public String getName() {return name.get();} 
-	public StringProperty getNameProperty() {return name;}
 	public String getAge() {return age.get();}
 	public StringProperty getAgeProperty() {return age;}
 	public String getGender() {return gender.get();}
