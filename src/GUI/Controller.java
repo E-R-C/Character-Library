@@ -548,6 +548,12 @@ public class Controller {
 				&& database.getItem_list().contains(selectedItem)) {
 			selectedItem.setOwner(selectedCharacter.getName());
 			selectedItem.setoID(selectedCharacter.getcID());
+			try {
+				database.updateItem(selectedItem);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -555,6 +561,12 @@ public class Controller {
 		if (database.getItem_list().contains(selectedItem)) {
 			selectedItem.setOwner("None");
 			selectedItem.setoID("0");
+			try {
+				database.updateItem(selectedItem);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -563,6 +575,12 @@ public class Controller {
 				&& database.getEvent_list().contains(selectedEvent)) {
 			selectedEvent.setSubject(selectedCharacter.getName());
 			selectedEvent.setsID(selectedCharacter.getcID());
+			try {
+				database.updateEvent(selectedEvent);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -570,6 +588,12 @@ public class Controller {
 		if (database.getEvent_list().contains(selectedEvent)) {
 			selectedEvent.setSubject("None");
 			selectedEvent.setsID("0");
+			try {
+				database.updateEvent(selectedEvent);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
