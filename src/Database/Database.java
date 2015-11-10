@@ -22,8 +22,10 @@ public class Database {
     public void load_db() throws SQLException, ClassNotFoundException {
         item_list = FXCollections.observableArrayList();
         character_list = FXCollections.observableArrayList();
+        event_list = FXCollections.observableArrayList();
         filter_items = FXCollections.observableArrayList();
         filter_character = FXCollections.observableArrayList();
+        filter_Event = FXCollections.observableArrayList();
         Class.forName("org.sqlite.JDBC");
         why();
         con = DriverManager.getConnection("jdbc:sqlite:story.db");

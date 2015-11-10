@@ -22,7 +22,7 @@ public class Character {
     	this.age = new SimpleStringProperty(blankChecker(age));
     	this.race = new SimpleStringProperty(blankChecker(race));
     	this.occupation = new SimpleStringProperty(blankChecker(occupation));
-    	this.cID = new SimpleStringProperty(blankChecker(cID));
+    	this.cID = new SimpleStringProperty(cID);
     }
     
     public String blankChecker(String word){

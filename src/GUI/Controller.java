@@ -17,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 public class Controller {
@@ -29,6 +30,15 @@ public class Controller {
 	
 	@FXML
 	private SplitPane canvas;
+	
+	@FXML
+	private AnchorPane charCanvas;
+	
+	@FXML
+	private AnchorPane itemCanvas;
+	
+	@FXML
+	private AnchorPane eventCanvas;
 	
 	@FXML 
 	private TableView<Character> characterTable;
@@ -160,6 +170,12 @@ public class Controller {
 				cellData -> cellData.getValue().getSubjectProperty());
 		
 		canvas.setOnKeyPressed(k -> handlePress(k.getCode()));
+		
+		charCanvas.setOnKeyPressed(k -> handleCharPress(k.getCode()));
+
+		itemCanvas.setOnKeyPressed(k -> handleItemPress(k.getCode()));
+		
+		eventCanvas.setOnKeyPressed(k -> handleEventPress(k.getCode()));
 		
 		characterTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> setSelectedCharacter(newValue));
@@ -298,31 +314,46 @@ public class Controller {
 	}
 	
 	public void handlePress (KeyCode code) {
+		if (code == KeyCode.ESCAPE) {
+			escapeAction();
+		}
+	}
+	
+	public void handleCharPress(KeyCode code) {
 		if (code == KeyCode.ENTER) {
 			if (addCharFlag) {
 				addCharacter();
-			}
-			if (addItemFlag) {
-				addItem();
-			}
+			}			
 			if (editCharFlag) {
 				editCharacter();
 			}
+		}
+	}
+	
+	public void handleItemPress(KeyCode code) {
+		if (code == KeyCode.ENTER) {
+			if (addItemFlag) {
+				addItem();
+			}			
 			if (editItemFlag) {
 				editItem();
 			}
+		}
+	}		
+	
+	public void handleEventPress(KeyCode code) {
+		if (code == KeyCode.ENTER) {
 			if (addEventFlag) {
 				addEvent();
-			}
+			}			
 			if (editEventFlag) {
 				editEvent();
 			}
 		}
-		
-		if (code == KeyCode.ESCAPE) {
-			escapeAction();
-		}
-		
+	}
+	
+	public void eventBoxFocus() {
+		eventBox.requestFocus();
 	}
 	
 	public String parseDatePicker() {
@@ -374,6 +405,7 @@ public class Controller {
 					parseDatePicker(), "None", "0", EventID);
 			try {
 				database.addEvent(event);
+				System.out.println("Event Added");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -514,6 +546,7 @@ public class Controller {
 		displayEventLabels();
 		editEventFlag = false;
 		addEventFlag = true;
+		System.out.println("Event Displayed");
 	}
 	
 	public void editEventDisplay() {
