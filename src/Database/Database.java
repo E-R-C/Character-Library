@@ -73,21 +73,22 @@ public class Database {
 
     public void updateChar(Character c) throws SQLException {
         // Name VARCHAR, Age VARCHAR, Gender VARCHAR, Race VARCHAR, Occupation VARCHAR, CharacterID VARCHAR
-        String cmd = "UPDATE CHARACTERS SET Name ='" + c.getName() + "', Age = '" + c.getAge() + "', Gender = '" +
+        why();
+    	String cmd = "UPDATE CHARACTERS SET Name ='" + c.getName() + "', Age = '" + c.getAge() + "', Gender = '" +
                 c.getGender() + "', Race = '" + c.getRace() + "', Occupation = '" + c.getOccupation() +
                 "', CharacterID = '" + c.getcID() + "' WHERE CharacterID = '" + c.getcID() + "';";
         execute(cmd);
+        because();
     }
     public void updateItem(Item i) throws SQLException {
         String cmd = "UPDATE ITEMS SET Name = '" + i.getName() + "', Location = '" + i.getLocation() + "', Owner = '" + i.getOwner() + "', CharacterID = '" + i.getoID() + "' WHERE ItemID = '" + i.getiID() + "';";
         execute(cmd);
     }
     public void updateEvent(Circumstance e) throws SQLException{
-        String cmd = "UPDATE EVENTS GET Name ='" + e.getName() + "', Date = '" + e.getDate() + "', Subject = '" + e.getSubject() + "', CharacterID = '" + e.getsID() + "' WHERE EventID = '" + e.geteID() + "';";
+    	String cmd = "UPDATE EVENTS SET Name ='" + e.getName() + "', Date = '" + e.getDate() + "', Subject = '" + e.getSubject() + "', CharacterID = '" + e.getsID() + "' WHERE EventID = '" + e.geteID() + "';";
         execute(cmd);
     }
     public void addChar(Character c) throws SQLException {
-        why();
         // instead of item. we could add each of the column inputs. it may be better that way.
         // (Name, Gender, Age, Race, Occupation, CharacterID)
         character_list.add(c);
@@ -97,15 +98,16 @@ public class Database {
     }
     public void addItem(Item item) throws SQLException {
         // instead of char. we could add each of the column inputs. it may be better that way.
-        item_list.add(item);
+    	item_list.add(item);
         String cmd = "INSERT INTO ITEMS (Name, Location, Owner, CharacterID, ItemID) VALUES ('" +
                 item.getName() + "','" + item.getLocation() + "','" + item.getOwner() + "','" + item.getoID() + "','" + item.getiID() + "');";
         execute(cmd);
     }
     public void addEvent(Circumstance event) throws SQLException{
-        event_list.add(event);
-        String cmd = "INSERT INTO ITEMS (Name, Date, Subject, CharacterID, EventID) VALUES ('" +
-                event.getName() + "','" + event.getDate() + "','" + event.getSubject() +"," + event.getsID() + "','" + event.geteID() + "');";
+    	event_list.add(event);
+        String cmd = "INSERT INTO EVENT (Name, Date, Subject, CharacterID, EventID) VALUES ('" +
+                event.getName() + "','" + event.getDate() + "','" + event.getSubject() +"','" + event.getsID() + "','" + event.geteID() + "');";
+        execute(cmd);
     }
     public void deleteItem(Item item) throws SQLException {
         String cmd = "DELETE from ITEMS where ItemID=" + item.getiID() + ";";

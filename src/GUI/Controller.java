@@ -395,7 +395,6 @@ public class Controller {
 					parseDatePicker(), "None", "0", EventID);
 			try {
 				database.addEvent(event);
-				System.out.println("Event Added");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
