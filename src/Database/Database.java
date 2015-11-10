@@ -66,7 +66,10 @@ public class Database {
             item_list.add(new Item(rs.getString("Name"), rs.getString("Location"), rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")));
             // rs.getString("Name"),rs.getString("Location"),rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")
             }
-        System.out.println("items list size: " + item_list.size());
+        rs = stat.executeQuery("SELECT * FROM EVENT;");
+        while(rs.next()){
+            event_list.add(new Circumstance(rs.getString("Name"), rs.getString("Date"), rs.getString("Subject"), rs.getString("CharacterID"), rs.getString("EventID")));
+        }
         because();
     }
 
@@ -245,6 +248,7 @@ public class Database {
         }
         because();
     }
+
     private void execute(String cmd) throws SQLException {
         why();
         System.out.println(cmd);
