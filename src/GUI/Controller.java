@@ -28,6 +28,8 @@ public class Controller {
 	private Item selectedItem;
 	private Circumstance selectedEvent;
 	
+	private State mode = State.NONE;
+	
 	@FXML
 	private SplitPane canvas;
 	
@@ -128,18 +130,6 @@ public class Controller {
 	private String ItemID;
 	
 	private String EventID;
-	
-	private boolean addCharFlag = false;
-	
-	private boolean addItemFlag = false;
-	
-	private boolean editCharFlag = false;
-	
-	private boolean editItemFlag = false;
-	
-	private boolean addEventFlag = false;
-	
-	private boolean editEventFlag = false;
 	
 	@FXML
 	public void initialize() {
@@ -321,10 +311,10 @@ public class Controller {
 	
 	public void handleCharPress(KeyCode code) {
 		if (code == KeyCode.ENTER) {
-			if (addCharFlag) {
+			if (mode == State.ADD_CHAR) {
 				addCharacter();
 			}			
-			if (editCharFlag) {
+			if (mode == State.EDIT_CHAR) {
 				editCharacter();
 			}
 		}
@@ -332,10 +322,10 @@ public class Controller {
 	
 	public void handleItemPress(KeyCode code) {
 		if (code == KeyCode.ENTER) {
-			if (addItemFlag) {
+			if (mode == State.ADD_ITEM) {
 				addItem();
 			}			
-			if (editItemFlag) {
+			if (mode == State.EDIT_ITEM) {
 				editItem();
 			}
 		}
@@ -343,10 +333,10 @@ public class Controller {
 	
 	public void handleEventPress(KeyCode code) {
 		if (code == KeyCode.ENTER) {
-			if (addEventFlag) {
+			if (mode == State.ADD_EVENT) {
 				addEvent();
 			}			
-			if (editEventFlag) {
+			if (mode == State.EDIT_EVENT) {
 				editEvent();
 			}
 		}
@@ -377,7 +367,7 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			addCharFlag = false;
+			mode = State.NONE;
 			incCharacterID();
 			clearCharLabels();
 		}
@@ -393,7 +383,7 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			addItemFlag = false;
+			mode = State.NONE;
 			incItemID();
 			clearItemLabels();
 		}
@@ -410,7 +400,7 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			addEventFlag = false;
+			mode = State.NONE;
 			incEventID();
 			clearEventLabels();
 		}
@@ -431,7 +421,7 @@ public class Controller {
 				e.printStackTrace();
 			}
 			clearCharLabels();
-			editCharFlag = false;
+			mode = State.NONE;
 		}
 	}
 	
@@ -447,7 +437,7 @@ public class Controller {
 				e.printStackTrace();
 			}
 			clearItemLabels();
-			editItemFlag = false;
+			mode = State.NONE;
 		}
 	}
 	
@@ -463,7 +453,7 @@ public class Controller {
 				e.printStackTrace();
 			}
 			clearEventLabels();
-			editEventFlag = false;
+			mode = State.NONE;
 		}
 	}
 	
@@ -505,8 +495,7 @@ public class Controller {
 	public void addCharacterDisplay() {
 		clearCharLabels();
 		displayCharLabels();
-		editCharFlag = false;
-		addCharFlag = true;
+		mode = State.ADD_CHAR;
 	}
 	
 	public void editCharacterDisplay() {
@@ -518,16 +507,14 @@ public class Controller {
 			ageBox.setText(selectedCharacter.getAge());
 			raceBox.setText(selectedCharacter.getRace());
 			occupationBox.setText(selectedCharacter.getOccupation());
-			addCharFlag = false;
-			editCharFlag = true;
+			mode = State.EDIT_CHAR;
 		}
 	}
 	
 	public void addItemDisplay() {
 		clearItemLabels();
 		displayItemLabels();
-		editItemFlag = false;
-		addItemFlag = true;
+		mode = State.ADD_ITEM;
 	}
 	
 	public void editItemDisplay() {
@@ -536,16 +523,14 @@ public class Controller {
 			displayItemLabels();
 			itemBox.setText(selectedItem.getName());
 			locationBox.setText(selectedItem.getLocation());
-			addCharFlag = false;
-			editCharFlag = true;
+			mode = State.EDIT_ITEM;
 		}
 	}
 	
 	public void addEventDisplay() {
 		clearEventLabels();
 		displayEventLabels();
-		editEventFlag = false;
-		addEventFlag = true;
+		mode = State.ADD_EVENT;
 		System.out.println("Event Displayed");
 	}
 	
@@ -554,8 +539,7 @@ public class Controller {
 			clearEventLabels();
 			displayEventLabels();
 			eventBox.setText(selectedEvent.getName());
-			addEventFlag = false;
-			editEventFlag = true;
+			mode = State.EDIT_EVENT;
 		}
 	}
 	
@@ -681,12 +665,7 @@ public class Controller {
 	}
 	
 	public void escapeAction() {
-		addCharFlag = false;
-		editCharFlag = false;
-		addItemFlag = false;
-		editItemFlag = false;
-		addEventFlag = false;
-		editEventFlag = false;
+		mode = State.NONE;
 		clearCharLabels();
 		clearItemLabels();
 		clearEventLabels();
