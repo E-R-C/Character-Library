@@ -50,6 +50,8 @@
                   <TextField fx:id="occupationBox" prefWidth="100.0" promptText="Occupation" GridPane.columnIndex="4" />
                </children>
             </GridPane>
+            <Button layoutY="328.0" mnemonicParsing="false" onAction="#clearCharFilter" prefWidth="150.0" text="Clear Filter" />
+            <Button layoutX="251.0" layoutY="266.0" mnemonicParsing="false" onAction="#displayEvents" prefWidth="250.0" text="Display Character's Events" />
          </children></AnchorPane>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -57,7 +59,7 @@
                <content>
                 <AnchorPane fx:id="itemCanvas" minHeight="0.0" minWidth="0.0">
                      <children>
-                        <Button layoutX="145.0" layoutY="266.0" mnemonicParsing="false" onAction="#removeOwner" prefWidth="150.0" text="Remove Owner" />
+                        <Button layoutX="150.0" layoutY="297.0" mnemonicParsing="false" onAction="#removeOwner" prefWidth="150.0" text="Remove Owner" />
                         <TableView fx:id="itemTable" layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
                           <columns>
                             <TableColumn fx:id="itemColumn" prefWidth="100.0" text="Item" />
@@ -73,7 +75,7 @@
                         <Button layoutY="349.0" mnemonicParsing="false" onAction="#addItemDisplay" prefWidth="100.0" text="New Item" />
                         <Button layoutX="100.0" layoutY="349.0" mnemonicParsing="false" onAction="#editItemDisplay" prefWidth="100.0" text="Edit Item" />
                         <Button layoutX="200.0" layoutY="349.0" mnemonicParsing="false" onAction="#deleteItem" prefWidth="100.0" text="Delete Item" />
-                        <Button layoutX="145.0" layoutY="235.0" mnemonicParsing="false" onAction="#assignOwner" prefWidth="150.0" text="Assign Owner" />
+                        <Button layoutX="150.0" layoutY="266.0" mnemonicParsing="false" onAction="#assignOwner" prefWidth="150.0" text="Assign Owner" />
                         <TextField fx:id="itemFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
                         <TextField fx:id="itemLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
                         <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterItems" prefWidth="150.0" text="Filter Items" />
@@ -90,6 +92,7 @@
                               <TextField fx:id="locationBox" prefWidth="100.0" promptText="Location" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
+                        <Button layoutX="150.0" layoutY="235.0" mnemonicParsing="false" onAction="#clearItemFilter" prefWidth="150.0" text="Clear Filter" />
                      </children>
                   </AnchorPane>
                </content>
@@ -126,11 +129,12 @@
                         <Button layoutX="-1.0" layoutY="235.0" mnemonicParsing="false" onAction="#filterEvents" prefWidth="150.0" text="Filter Events" />
                         <TextField fx:id="eventLabel" layoutX="-1.0" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
                         <TextField fx:id="eventFilter" layoutX="-1.0" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
-                        <Button layoutX="149.0" layoutY="235.0" mnemonicParsing="false" onAction="#assignSubject" prefWidth="150.0" text="Assign Subject" />
+                        <Button layoutX="149.0" layoutY="266.0" mnemonicParsing="false" onAction="#assignSubject" prefWidth="150.0" text="Assign Subject" />
                         <Button layoutX="199.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteEvent" prefWidth="100.0" text="Erase Event" />
                         <Button layoutX="99.0" layoutY="349.0" mnemonicParsing="false" onAction="#editEventDisplay" prefWidth="100.0" text="Edit Event" />
                         <Button layoutX="-1.0" layoutY="349.0" mnemonicParsing="false" onAction="#addEventDisplay" prefWidth="100.0" text="New Event" />
-                        <Button layoutX="149.0" layoutY="266.0" mnemonicParsing="false" onAction="#removeSubject" prefWidth="150.0" text="Remove Subject" />
+                        <Button layoutX="149.0" layoutY="297.0" mnemonicParsing="false" onAction="#removeSubject" prefWidth="150.0" text="Remove Subject" />
+                        <Button layoutX="149.0" layoutY="235.0" mnemonicParsing="false" onAction="#clearEventFilter" prefWidth="150.0" text="Clear Filter" />
                      </children>
                   </AnchorPane>
                </content>

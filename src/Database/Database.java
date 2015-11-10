@@ -163,6 +163,7 @@ public class Database {
     }
 
     public void queryEvent(String Column, String input) throws SQLException {
+        why();
         filter_Event.clear();
         ResultSet rs = stat.executeQuery( "SELECT * FROM EVENTS;" );
         int in_len = input.length();
@@ -176,10 +177,12 @@ public class Database {
                 }
             }
         }
+        because();
     }
 
     public void queryChar(String Column, String input) throws SQLException {
-        filter_character.clear();
+        why();
+    	filter_character.clear();
         ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
         int in_len = input.length();
         while (rs.next()){
@@ -193,6 +196,7 @@ public class Database {
             }
 
         }
+        because();
     }
     public String getMaxcID() throws SQLException {
         why();
