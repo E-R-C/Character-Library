@@ -34,7 +34,7 @@ public class Database {
         execute(cmd);
         cmd = "CREATE TABLE IF NOT EXISTS ITEMS (Name VARCHAR, Location VARCHAR, Owner VARCHAR, CharacterID VARCHAR, ItemID VARCHAR);";
         execute(cmd);
-        cmd = "CREATE TABLE IF NOT EXISTS EVENT (Name VARCHAR, Date VARCHAR, Subject VARCHAR, CharacterID VARCHAR, EventID VARCHAR);";
+        cmd = "CREATE TABLE IF NOT EXISTS EVENTS (Name VARCHAR, Date VARCHAR, Subject VARCHAR, CharacterID VARCHAR, EventID VARCHAR);";
         execute(cmd);
         populate_lists();
     }
@@ -66,7 +66,7 @@ public class Database {
             item_list.add(new Item(rs.getString("Name"), rs.getString("Location"), rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")));
             // rs.getString("Name"),rs.getString("Location"),rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")
             }
-        rs = stat.executeQuery("SELECT * FROM EVENT;");
+        rs = stat.executeQuery("SELECT * FROM EVENTS;");
         while(rs.next()){
             event_list.add(new Circumstance(rs.getString("Name"), rs.getString("Date"), rs.getString("Subject"), rs.getString("CharacterID"), rs.getString("EventID")));
         }
@@ -88,6 +88,7 @@ public class Database {
         execute(cmd);
     }
     public void updateEvent(Circumstance e) throws SQLException{
+    	System.out.println("sID: " + e.getsID());
     	String cmd = "UPDATE EVENTS SET Name ='" + e.getName() + "', Date = '" + e.getDate() + "', Subject = '" + e.getSubject() + "', CharacterID = '" + e.getsID() + "' WHERE EventID = '" + e.geteID() + "';";
         execute(cmd);
     }
@@ -108,7 +109,7 @@ public class Database {
     }
     public void addEvent(Circumstance event) throws SQLException{
     	event_list.add(event);
-        String cmd = "INSERT INTO EVENT (Name, Date, Subject, CharacterID, EventID) VALUES ('" +
+        String cmd = "INSERT INTO EVENTS (Name, Date, Subject, CharacterID, EventID) VALUES ('" +
                 event.getName() + "','" + event.getDate() + "','" + event.getSubject() +"','" + event.getsID() + "','" + event.geteID() + "');";
         execute(cmd);
     }
@@ -123,7 +124,7 @@ public class Database {
         execute(cmd);
     }
     public void deleteEvent(Circumstance circ) throws SQLException {
-        String cmd = "DELETE from EVENT where EventID=" + circ.geteID() + ";";
+        String cmd = "DELETE from EVENTS where EventID=" + circ.geteID() + ";";
         event_list.remove(circ);
         execute(cmd);
     }
@@ -168,33 +169,60 @@ public class Database {
     }
 
     public void queryEvent(String Column, String input) throws SQLException {
+    	System.out.println("THis is now LJ's controller not calling it");
         why();
         filter_Event.clear();
         ResultSet rs = stat.executeQuery( "SELECT * FROM EVENTS;" );
         int in_len = input.length();
+        System.out.println("Hi");
         while (rs.next()){
-            System.out.println("Column = " + rs.getString(Column).substring(0,in_len-1));
-            System.out.println("input = " + input);
+        	int search_len = in_len -1;
+        	if (rs.getString(Column).length() <= search_len){
+        		search_len = rs.getString(Column).length();
+        	}
             if (input.length() <= rs.getString(Column).length()){
-                if (rs.getString(Column).toLowerCase().substring(0,in_len).equals(input.toLowerCase())){
+                if (rs.getString(Column).toLowerCase().substring(0,search_len+1).equals(input.toLowerCase())){
                     System.out.println(rs.getString("EventID"));
-                    filter_Event.add(findEvent(rs.getString("CharacterID")));
+                    filter_Event.add(findEvent(rs.getString("EventID")));
+                    
                 }
             }
         }
         because();
     }
-
+    public void queryitem(String Column, String input) throws SQLException{
+        why();
+        filter_items.clear();
+        System.out.println(Column);
+        System.out.println(input);
+        ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS;");
+        int in_len = input.length();
+        while (rs.next()){
+        	int search_len = in_len -1;
+        	if (rs.getString(Column).length() <= search_len){
+        		search_len = rs.getString(Column).length();
+        	}
+            if (input.length() <= rs.getString(Column).length()){
+                if (rs.getString(Column).toLowerCase().substring(0, search_len+1).equals(input.toLowerCase())){
+                    System.out.println(rs.getString("ItemID"));
+                    filter_items.add(findItem(rs.getString("ItemID")));
+                }
+            }
+        }
+        because();
+    }
     public void queryChar(String Column, String input) throws SQLException {
         why();
     	filter_character.clear();
         ResultSet rs = stat.executeQuery( "SELECT * FROM CHARACTERS;" );
         int in_len = input.length();
         while (rs.next()){
-            System.out.println("Column = " + rs.getString(Column).substring(0,in_len-1));
-            System.out.println("input = " + input);
+        	int search_len = in_len -1;
+        	if (rs.getString(Column).length() <= search_len){
+        		search_len = rs.getString(Column).length();
+        	}
             if (input.length() <= rs.getString(Column).length()){
-                if (rs.getString(Column).toLowerCase().substring(0,in_len).equals(input.toLowerCase())){
+                if (rs.getString(Column).toLowerCase().substring(0,search_len+1).equals(input.toLowerCase())){
                     System.out.println(rs.getString("CharacterID"));
                     filter_character.add(findChar(rs.getString("CharacterID")));
                 }
@@ -231,23 +259,7 @@ public class Database {
         because();
         return "0";
     }
-    public void queryitem(String Column, String input) throws SQLException{
-        why();
-        filter_items.clear();
-        ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS");
-        int in_len = input.length();
-        while (rs.next()){
-            if (input.length() <= rs.getString(Column).length()){
-                System.out.println("Column = " + rs.getString(Column).substring(0,in_len-1));
-                System.out.println("input = " + input);
-                if (rs.getString(Column).toLowerCase().substring(0, in_len).equals(input.toLowerCase())){
-                    System.out.println(rs.getString("ItemID"));
-                    filter_items.add(findItem(rs.getString("ItemID")));
-                }
-            }
-        }
-        because();
-    }
+
 
     private void execute(String cmd) throws SQLException {
         why();

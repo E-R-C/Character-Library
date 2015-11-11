@@ -11,6 +11,7 @@ import Database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
@@ -110,26 +111,28 @@ public class Controller {
 	@FXML
 	private TextField characterFilter;
 	
-	@FXML 
-	private TextField characterLabel;
-	
 	@FXML
 	private TextField itemFilter;
-	
-	@FXML
-	private TextField itemLabel;
 	
 	@FXML
 	private TextField eventFilter;
 	
 	@FXML
-	private TextField eventLabel;
+	private ComboBox characterLabel;
+	
+	@FXML
+	private ComboBox itemLabel;
+	
+	@FXML
+	private ComboBox eventLabel;
 	
 	private String CharacterID;
 	
 	private String ItemID;
 	
 	private String EventID;
+	
+	
 	
 	@FXML
 	public void initialize() {
@@ -175,6 +178,22 @@ public class Controller {
 		
 		eventTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> setSelectedEvent(newValue));
+		
+		String[] charLabels = {"Name", "Gender", "Age", "Race", 
+				"Occupation"};
+		
+		characterLabel.getItems().addAll(charLabels);
+		characterLabel.setValue("Name");
+		
+		String[] itemLabels = {"Name", "Location", "Owner"};
+		
+		itemLabel.getItems().addAll(itemLabels);
+		itemLabel.setValue("Name");
+		
+		String[] eventLabels = {"Name", "Date", "Subject"};
+		
+		eventLabel.getItems().addAll(eventLabels);
+		eventLabel.setValue("Name");
 		
 		try {
 			database.load_db();
@@ -358,9 +377,10 @@ public class Controller {
 	
 	public void addCharacter() {
 		if (!nameBox.getText().isEmpty()) {
-			Character character = new Character(nameBox.getText(), 
-					genderBox.getText(), ageBox.getText(), 
-					raceBox.getText(), occupationBox.getText(), CharacterID);
+			Character character = new Character(nameBox.getText().trim(), 
+					genderBox.getText().trim(), ageBox.getText().trim(), 
+					raceBox.getText().trim(), occupationBox.getText().trim(), 
+					CharacterID);
 			try {
 				database.addChar(character);
 			} catch (SQLException e) {
@@ -375,7 +395,7 @@ public class Controller {
 	
 	public void addItem() {
 		if (!itemBox.getText().isEmpty()) {
-			Item item = new Item(itemBox.getText(), locationBox.getText(), "None", 
+			Item item = new Item(itemBox.getText().trim(), locationBox.getText().trim(), "None", 
 					"0", ItemID);
 			try {
 				database.addItem(item);
@@ -391,8 +411,8 @@ public class Controller {
 	
 	public void addEvent() {
 		if (!eventBox.getText().isEmpty()) {
-			Circumstance event = new Circumstance(eventBox.getText(), 
-					parseDatePicker(), "None", "0", EventID);
+			Circumstance event = new Circumstance(eventBox.getText().trim(), 
+					parseDatePicker().trim(), "None", "0", EventID);
 			try {
 				database.addEvent(event);
 			} catch (SQLException e) {
@@ -408,11 +428,11 @@ public class Controller {
 	public void editCharacter() {
 		if (!nameBox.getText().isEmpty() 
 				&& database.getCharacter_list().contains(selectedCharacter)) {
-			selectedCharacter.setName(nameBox.getText());
-			selectedCharacter.setGender(genderBox.getText());
-			selectedCharacter.setAge(ageBox.getText());
-			selectedCharacter.setRace(raceBox.getText());
-			selectedCharacter.setOccupation(occupationBox.getText());
+			selectedCharacter.setName(nameBox.getText().trim());
+			selectedCharacter.setGender(genderBox.getText().trim());
+			selectedCharacter.setAge(ageBox.getText().trim());
+			selectedCharacter.setRace(raceBox.getText().trim());
+			selectedCharacter.setOccupation(occupationBox.getText().trim());
 			try {
 				database.updateChar(selectedCharacter);
 			} catch (SQLException e) {
@@ -427,8 +447,8 @@ public class Controller {
 	public void editItem() {
 		if (!itemBox.getText().isEmpty() 
 				&& database.getItem_list().contains(selectedItem)) {
-			selectedItem.setName(itemBox.getText());
-			selectedItem.setLocation(locationBox.getText());
+			selectedItem.setName(itemBox.getText().trim());
+			selectedItem.setLocation(locationBox.getText().trim());
 			try {
 				database.updateItem(selectedItem);
 			} catch (SQLException e) {
@@ -443,7 +463,7 @@ public class Controller {
 	public void editEvent() {
 		if (!eventBox.getText().isEmpty() 
 				&& database.getEvent_list().contains(selectedEvent)) {
-			selectedEvent.setName(eventBox.getText());
+			selectedEvent.setName(eventBox.getText().trim());
 			selectedEvent.setDate(parseDatePicker());
 			try {
 				database.updateEvent(selectedEvent);
@@ -597,11 +617,10 @@ public class Controller {
 	}
 	
 	public void filterCharacters() {
-		if (!characterLabel.getText().isEmpty()
-				&& !characterFilter.getText().isEmpty()) {
+		if (!characterFilter.getText().isEmpty()) {
 			try {
-				database.queryChar(characterLabel.getText(), 
-						characterFilter.getText());
+				database.queryChar((String) characterLabel.getValue(), 
+						characterFilter.getText().trim());
 				characterTable.setItems(database.getFilter_Character());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -615,11 +634,10 @@ public class Controller {
 	}
 
 	public void filterItems() {
-		if (!itemLabel.getText().isEmpty()
-				&& !itemFilter.getText().isEmpty()) {
+		if (!itemFilter.getText().isEmpty()) {
 			try {
-				database.queryitem(itemLabel.getText(), 
-						itemFilter.getText());
+				database.queryitem((String) itemLabel.getValue(), 
+						itemFilter.getText().trim());
 				itemTable.setItems(database.getFilter_Items());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -633,11 +651,10 @@ public class Controller {
 	}
 	
 	public void filterEvents() {
-		if (!eventLabel.getText().isEmpty()
-				&& !eventFilter.getText().isEmpty()) {
+		if (!eventFilter.getText().isEmpty()) {
 			try {
-				database.queryEvent(eventLabel.getText(), 
-						eventFilter.getText());
+				database.queryEvent((String) eventLabel.getValue(), 
+						eventFilter.getText().trim());
 				eventTable.setItems(database.getFilter_Event());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -655,6 +672,7 @@ public class Controller {
 			try {
 				database.queryitem("CharacterID", selectedCharacter.getcID());
 				itemTable.setItems(database.getFilter_Items());
+				itemCanvas.requestFocus();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -665,8 +683,9 @@ public class Controller {
 	public void displayEvents() {
 		if (database.getCharacter_list().contains(selectedCharacter)) {
 			try {
-				database.queryitem("CharacterID", selectedCharacter.getcID());
+				database.queryEvent("CharacterID", selectedCharacter.getcID());
 				eventTable.setItems(database.getFilter_Event());
+				eventCanvas.requestFocus();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

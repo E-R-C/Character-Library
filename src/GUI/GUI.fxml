@@ -29,7 +29,6 @@
             <Button layoutX="300.0" layoutY="388.0" mnemonicParsing="false" onAction="#deleteCharacter" prefWidth="200.0" text="Delete Character" />
             <Button layoutX="251.0" layoutY="235.0" mnemonicParsing="false" onAction="#displayInventory" prefWidth="250.0" text="Display Character  Inventory" />
             <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterCharacters" prefWidth="150.0" text="Filter Characters" />
-            <TextField fx:id="characterLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
             <TextField fx:id="characterFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
             <GridPane fx:id="characterGrid" layoutY="419.0">
               <columnConstraints>
@@ -52,6 +51,7 @@
             </GridPane>
             <Button layoutY="328.0" mnemonicParsing="false" onAction="#clearCharFilter" prefWidth="150.0" text="Clear Filter" />
             <Button layoutX="251.0" layoutY="266.0" mnemonicParsing="false" onAction="#displayEvents" prefWidth="250.0" text="Display Character's Events" />
+            <ComboBox fx:id="characterLabel" layoutY="266.0" prefWidth="150.0" />
          </children></AnchorPane>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -62,7 +62,7 @@
                         <Button layoutX="150.0" layoutY="297.0" mnemonicParsing="false" onAction="#removeOwner" prefWidth="150.0" text="Remove Owner" />
                         <TableView fx:id="itemTable" layoutX="-5.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
                           <columns>
-                            <TableColumn fx:id="itemColumn" prefWidth="100.0" text="Item" />
+                            <TableColumn fx:id="itemColumn" prefWidth="100.0" text="Name" />
                             <TableColumn fx:id="locationColumn" prefWidth="100.0" text="Location" />
                               <TableColumn fx:id="ownerColumn" prefWidth="100.0" text="Owner" />
                           </columns>
@@ -77,7 +77,6 @@
                         <Button layoutX="200.0" layoutY="349.0" mnemonicParsing="false" onAction="#deleteItem" prefWidth="100.0" text="Delete Item" />
                         <Button layoutX="150.0" layoutY="266.0" mnemonicParsing="false" onAction="#assignOwner" prefWidth="150.0" text="Assign Owner" />
                         <TextField fx:id="itemFilter" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
-                        <TextField fx:id="itemLabel" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
                         <Button layoutY="235.0" mnemonicParsing="false" onAction="#filterItems" prefWidth="150.0" text="Filter Items" />
                         <GridPane fx:id="itemGrid" layoutY="380.0" prefWidth="200.0">
                           <columnConstraints>
@@ -93,6 +92,7 @@
                            </children>
                         </GridPane>
                         <Button layoutX="150.0" layoutY="235.0" mnemonicParsing="false" onAction="#clearItemFilter" prefWidth="150.0" text="Clear Filter" />
+                        <ComboBox fx:id="itemLabel" layoutY="266.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -108,7 +108,7 @@
                         </Text>
                         <TableView fx:id="eventTable" layoutX="-1.0" layoutY="35.0" prefHeight="200.0" prefWidth="300.0">
                            <columns>
-                              <TableColumn fx:id="eventColumn" prefWidth="100.0" text="Event" />
+                              <TableColumn fx:id="eventColumn" prefWidth="100.0" text="Name" />
                               <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
                               <TableColumn fx:id="subjectColumn" prefWidth="100.0" text="Subject" />
                            </columns>
@@ -127,14 +127,14 @@
                            </children>
                         </GridPane>
                         <Button layoutX="-1.0" layoutY="235.0" mnemonicParsing="false" onAction="#filterEvents" prefWidth="150.0" text="Filter Events" />
-                        <TextField fx:id="eventLabel" layoutX="-1.0" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Label" />
-                        <TextField fx:id="eventFilter" layoutX="-1.0" layoutY="266.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
+                        <TextField fx:id="eventFilter" layoutX="-1.0" layoutY="297.0" prefHeight="31.0" prefWidth="150.0" promptText="Filter" />
                         <Button layoutX="149.0" layoutY="266.0" mnemonicParsing="false" onAction="#assignSubject" prefWidth="150.0" text="Assign Subject" />
                         <Button layoutX="199.0" layoutY="349.0" mnemonicParsing="false" onAction="#deleteEvent" prefWidth="100.0" text="Erase Event" />
                         <Button layoutX="99.0" layoutY="349.0" mnemonicParsing="false" onAction="#editEventDisplay" prefWidth="100.0" text="Edit Event" />
                         <Button layoutX="-1.0" layoutY="349.0" mnemonicParsing="false" onAction="#addEventDisplay" prefWidth="100.0" text="New Event" />
                         <Button layoutX="149.0" layoutY="297.0" mnemonicParsing="false" onAction="#removeSubject" prefWidth="150.0" text="Remove Subject" />
                         <Button layoutX="149.0" layoutY="235.0" mnemonicParsing="false" onAction="#clearEventFilter" prefWidth="150.0" text="Clear Filter" />
+                        <ComboBox fx:id="eventLabel" layoutX="-1.0" layoutY="266.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </content>

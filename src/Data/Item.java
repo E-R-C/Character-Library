@@ -14,13 +14,6 @@ public class Item extends Entry{
     private StringProperty iID;
     private StringProperty oID;
     
-    public void deleteOwner(String id){
-    	if (id.equals(oID.get())) {
-    		owner.set("None");
-    		oID.set("0");
-    	}
-    }    
-    
     public Item(String name, String location, String owner, String oID, String iID){
     	this.name = new SimpleStringProperty(blankChecker(name));
     	this.location = new SimpleStringProperty(blankChecker(location));
