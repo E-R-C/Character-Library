@@ -695,14 +695,17 @@ public class Controller {
 	}
 	
 	public void clearCharFilter() {
+		characterFilter.clear();
 		characterTable.setItems(database.getCharacter_list());
 	}
 	
 	public void clearItemFilter() {
+		itemFilter.clear();
 		itemTable.setItems(database.getItem_list());
 	}
 	
 	public void clearEventFilter() {
+		eventFilter.clear();
 		eventTable.setItems(database.getEvent_list());
 	}
 	
