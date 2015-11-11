@@ -58,19 +58,19 @@ public class DataTests {
     @Test
     public void createCircumstance(){
     	Circumstance e1 = new Circumstance("name", "date", "subject", "sID", "eID");
-    	assertEquals("Sword", e1.getName());
+    	assertEquals("name", e1.getName());
     	e1.setName("");
     	assertEquals("Unknown", e1.getName());
-    	assertEquals("Location", e1.getDate());
+    	assertEquals("date", e1.getDate());
     	e1.setDate("");
     	assertEquals("Unknown", e1.getDate());
-    	assertEquals("Jared", e1.getSubject());
+    	assertEquals("subject", e1.getSubject());
     	e1.setSubject("");
     	assertEquals("Unknown", e1.getSubject());
-    	assertEquals("oID", e1.getsID());
+    	assertEquals("sID", e1.getsID());
     	e1.setsID("");
     	assertEquals("Unknown", e1.getsID());
-    	assertEquals("iID", e1.geteID());
+    	assertEquals("eID", e1.geteID());
     	e1.seteID("");
     	assertEquals("Unknown", e1.geteID());
     }
