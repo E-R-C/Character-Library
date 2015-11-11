@@ -59,7 +59,6 @@ public class Database {
         while(rs.next()){
             character_list.add(new Character(rs.getString("Name"), rs.getString("Gender"), rs.getString("Age"), rs.getString("Race"), rs.getString("Occupation"), rs.getString("CharacterID")));
             }
-        System.out.println(character_list.size());
         rs = stat.executeQuery("SELECT * FROM ITEMS;");
         while(rs.next()){
             item_list.add(new Item(rs.getString("Name"), rs.getString("Location"), rs.getString("Owner"), rs.getString("CharacterID"), rs.getString("ItemID")));
@@ -93,7 +92,6 @@ public class Database {
         execute(cmd);
     }
     public void addItem(Item item) throws SQLException {
-        // instead of char. we could add each of the column inputs. it may be better that way.
     	item_list.add(item);
         String cmd = "INSERT INTO ITEMS (Name, Location, Owner, CharacterID, ItemID) VALUES ('" +
                 item.getName() + "','" + item.getLocation() + "','" + item.getOwner() + "','" + item.getoID() + "','" + item.getiID() + "');";
@@ -171,7 +169,6 @@ public class Database {
             }
             if (input.length() <= rs.getString(Column).length()){
                 if (rs.getString(Column).toLowerCase().substring(0,search_len+1).equals(input.toLowerCase())){
-                    System.out.println(rs.getString("CharacterID"));
                     filter_character.add(findChar(rs.getString("CharacterID")));
                 }
             }
@@ -182,8 +179,6 @@ public class Database {
     public void queryitem(String Column, String input) throws SQLException{
         openConnection();
         filter_items.clear();
-        System.out.println(Column);
-        System.out.println(input);
         ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS;");
         int in_len = input.length();
         while (rs.next()){
@@ -193,7 +188,6 @@ public class Database {
             }
             if (input.length() <= rs.getString(Column).length()){
                 if (rs.getString(Column).toLowerCase().substring(0, search_len+1).equals(input.toLowerCase())){
-                    System.out.println(rs.getString("ItemID"));
                     filter_items.add(findItem(rs.getString("ItemID")));
                 }
             }
@@ -201,12 +195,10 @@ public class Database {
         closeConnection();
     }
     public void queryEvent(String Column, String input) throws SQLException {
-    	System.out.println("THis is now LJ's controller not calling it");
         openConnection();
         filter_Event.clear();
         ResultSet rs = stat.executeQuery( "SELECT * FROM EVENTS;" );
         int in_len = input.length();
-        System.out.println("Hi");
         while (rs.next()){
         	int search_len = in_len -1;
         	if (rs.getString(Column).length() <= search_len){
@@ -214,7 +206,6 @@ public class Database {
         	}
             if (input.length() <= rs.getString(Column).length()){
                 if (rs.getString(Column).toLowerCase().substring(0,search_len+1).equals(input.toLowerCase())){
-                    System.out.println(rs.getString("EventID"));
                     filter_Event.add(findEvent(rs.getString("EventID")));
                     
                 }
