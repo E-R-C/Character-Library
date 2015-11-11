@@ -73,12 +73,10 @@ public class Database {
 
 
     public void updateChar(Character c) throws SQLException {
-        openConnection();
     	String cmd = "UPDATE CHARACTERS SET Name ='" + c.getName() + "', Age = '" + c.getAge() + "', Gender = '" +
                 c.getGender() + "', Race = '" + c.getRace() + "', Occupation = '" + c.getOccupation() +
                 "', CharacterID = '" + c.getcID() + "' WHERE CharacterID = '" + c.getcID() + "';";
         execute(cmd);
-        closeConnection();
     }
     public void updateItem(Item i) throws SQLException {
         String cmd = "UPDATE ITEMS SET Name = '" + i.getName() + "', Location = '" + i.getLocation() + "', Owner = '" + i.getOwner() + "', CharacterID = '" + i.getoID() + "' WHERE ItemID = '" + i.getiID() + "';";
